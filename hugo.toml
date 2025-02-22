@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://jagg.github.io/'
 languageCode = 'en-us'
 title = 'Logos, Thumos & Code'
 theme = 'hugo-kiera'
