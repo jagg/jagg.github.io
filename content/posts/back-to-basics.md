@@ -1,6 +1,6 @@
 +++
 date = '2025-02-22T09:50:03+01:00'
-draft = true
+draft = false
 title = 'Back to basics'
 tags = ["existential dread", "new beginnings"]
 categories = ["opinion"]

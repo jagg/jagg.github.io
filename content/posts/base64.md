@@ -4,7 +4,7 @@ date = 2025-02-22T18:23:44+01:00
 images = []
 tags = ["low level"]
 categories = ["common lisp"]
-draft = true
+draft = false
 +++
 
 Looking for a first project to play with, I remembered
