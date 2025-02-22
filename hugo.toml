@@ -16,7 +16,7 @@ pygmentsCodeFences = true
 [params.author]
     name = "Jose A. Garcia"           #Author name
     github = "jagg"  #Github username
-    blusky = "jgarciagim"        #Twitter username
+    twitter = "jagarciagim"        #Twitter username
 
 [params]
     tagline = "Let's write some code"
