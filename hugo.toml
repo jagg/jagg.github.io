@@ -1,0 +1,40 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Logos, Thumos & Code'
+theme = 'hugo-kiera'
+copyright = "Copyright &copy; 2025 - Jose A. Garcia"
+canonifyurls = true
+
+[pagination]
+  pagersize = 3
+  path = 'page'
+
+summaryLength = 30
+enableEmoji = true
+pygmentsCodeFences = true
+
+[params.author]
+    name = "Jose A. Garcia"           #Author name
+    github = "jagg"  #Github username
+    blusky = "jgarciagim"        #Twitter username
+
+[params]
+    tagline = "Let's write some code"
+    description = "Random ideas about programming"
+    images = [""] #This is used for opengraph/twitter cards.
+    customCSS = []  #Optional Customised CSS
+    disableDarkModeCSS = false # disables css style for users using dark-mode
+    mathjax = true #Enable display of mathematics using mathjax (LaTeX syntax)
+
+
+[[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags"
+    weight = 1
+
+[[menu.main]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories"
+    weight = 1

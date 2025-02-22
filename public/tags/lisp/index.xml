@@ -1,0 +1,25 @@
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+ <channel>
+   <title>Lisp on Code &amp; Learn</title>
+   <link>http://localhost:1313/tags/lisp/</link>
+   <description>Recent content in Lisp on Code &amp; Learn</description>
+   <generator>Hugo -- gohugo.io</generator>
+   <language>en-us</language>
+   <copyright>Copyright &amp;copy; 2023 - Author Name</copyright>
+   <lastBuildDate>Sat, 22 Feb 2025 09:50:03 +0100</lastBuildDate>
+   
+       <atom:link href="http://localhost:1313/tags/lisp/index.xml" rel="self" type="application/rss+xml" />
+   
+   
+     <item>
+       <title>Base64</title>
+       <link>http://localhost:1313/posts/base64/</link>
+       <pubDate>Sat, 22 Feb 2025 09:50:03 +0100</pubDate>
+       
+       <guid>http://localhost:1313/posts/base64/</guid>
+       <description>&lt;h2 id=&#34;back-to-basics&#34;&gt;Back to basics!&lt;/h2&gt;&lt;p&gt;I&amp;rsquo;m doing &lt;strong&gt;stuff&lt;/strong&gt; now so that I can keep on &lt;em&gt;learning&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Go to &lt;a href=&#34;http://google.com&#34;&gt;Google&lt;/a&gt; for more.&lt;/p&gt;</description>
+     </item>
+   
+ </channel>
+</rss>
