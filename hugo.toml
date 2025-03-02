@@ -17,6 +17,7 @@ pygmentsCodeFences = true
     name = "Jose A. Garcia"           #Author name
     github = "jagg"  #Github username
     twitter = "jagarciagim"        #Twitter username
+    bluesky = "jagargim.bsky.social"
 
 [params]
     tagline = "Let's write some code"
