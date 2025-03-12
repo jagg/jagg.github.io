@@ -6,6 +6,8 @@ tags = ["low level", "CFFI"]
 categories = ["common lisp", "zig"]
 draft = false
 +++
+**2025-03-12 Update, as people on [Twitter](https://x.com/AndrewKraevskii/status/1898539402638283131), [Lobsters](https://lobste.rs/s/uaw2fo/using_zig_from_common_lisp), and [Reddit](https://www.reddit.com/r/lisp/comments/1j6qyo9/calling_zig_from_common_lisp/) pointed out, I was missing a `extern` in the struct, see the last section!** 
+
 
 Last week I started playing with my own toy key-value store (see the
 previous [post]({{% ref "cledis" %}})). At the end I got to a
@@ -117,6 +119,7 @@ EXPERIMENTS>
 ```
 
 ### Not all is clear yet
+
 When I was experimenting with the code I realised that if I switched
 the order of the fields, so that the string is the last one:
 
@@ -148,3 +151,21 @@ memory alignment, but in theory the code should have been equivalent...
 
 If anybody happens to read this and knows the answer, please ping me
 on Twitter or Bluesky, I would love to know what's going on!
+
+#### It seems it is clear now!
+
+As a group of nice people was kind enough to tell me, Zig reorders the
+fields in the structs to avoid padding, by default. That means that
+the 64 bit pointer, being longer than the ints, would be positioned
+first, causing the problem.
+
+Marking the struct as extern solves it:
+
+```zig
+pub const Point = extern struct  {
+    x: i32,
+    y: i32,
+    label: [*:0]const u8,
+};
+```
+

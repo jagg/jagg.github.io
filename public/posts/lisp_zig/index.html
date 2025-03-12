@@ -10,7 +10,8 @@
 <meta name="author" content="Jose A. Garcia" /><meta property="og:url" content="http://localhost:1313/posts/lisp_zig/">
   <meta property="og:site_name" content="Logos, Thumos & Code">
   <meta property="og:title" content="Using Zig from Common Lisp">
-  <meta property="og:description" content="Last week I started playing with my own toy key-value store (see the previous post). At the end I got to a hashtable exposed over the network, using a protocol based on S-Expressions. For the next steps, I have two alternatives, I can work on the low level representation of the data, maybe implement B-Trees, and some storage, or I can go up instead, and see how can I make it distributed, and play with some nice algorithms.">
+  <meta property="og:description" content="2025-03-12 Update, as people on Twitter, Lobsters, and Reddit pointed out, I was missing a extern in the struct, see the last section!
+Last week I started playing with my own toy key-value store (see the previous post). At the end I got to a hashtable exposed over the network, using a protocol based on S-Expressions. For the next steps, I have two alternatives, I can work on the low level representation of the data, maybe implement B-Trees, and some storage, or I can go up instead, and see how can I make it distributed, and play with some nice algorithms.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -24,7 +25,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="http://localhost:1313/">
   <meta name="twitter:title" content="Using Zig from Common Lisp">
-  <meta name="twitter:description" content="Last week I started playing with my own toy key-value store (see the previous post). At the end I got to a hashtable exposed over the network, using a protocol based on S-Expressions. For the next steps, I have two alternatives, I can work on the low level representation of the data, maybe implement B-Trees, and some storage, or I can go up instead, and see how can I make it distributed, and play with some nice algorithms.">
+  <meta name="twitter:description" content="2025-03-12 Update, as people on Twitter, Lobsters, and Reddit pointed out, I was missing a extern in the struct, see the last section!
+Last week I started playing with my own toy key-value store (see the previous post). At the end I got to a hashtable exposed over the network, using a protocol based on S-Expressions. For the next steps, I have two alternatives, I can work on the low level representation of the data, maybe implement B-Trees, and some storage, or I can go up instead, and see how can I make it distributed, and play with some nice algorithms.">
 
 <meta name="generator" content="Hugo 0.145.0">
     
@@ -148,7 +150,8 @@
 
     
 
-    <p>Last week I started playing with my own toy key-value store (see the
+    <p><strong>2025-03-12 Update, as people on <a href="https://x.com/AndrewKraevskii/status/1898539402638283131">Twitter</a>, <a href="https://lobste.rs/s/uaw2fo/using_zig_from_common_lisp">Lobsters</a>, and <a href="https://www.reddit.com/r/lisp/comments/1j6qyo9/calling_zig_from_common_lisp/">Reddit</a> pointed out, I was missing a <code>extern</code> in the struct, see the last section!</strong></p>
+<p>Last week I started playing with my own toy key-value store (see the
 previous <a href="http://localhost:1313/posts/cledis/">post</a>). At the end I got to a
 hashtable exposed over the network, using a protocol based on
 S-Expressions. For the next steps, I have two alternatives, I can work
@@ -244,7 +247,18 @@ code I get an error:</p>
 memory alignment, but in theory the code should have been equivalent&hellip;</p>
 <p>If anybody happens to read this and knows the answer, please ping me
 on Twitter or Bluesky, I would love to know what&rsquo;s going on!</p>
-
+<h4 id="it-seems-it-is-clear-now">It seems it is clear now!</h4>
+<p>As a group of nice people was kind enough to tell me, Zig reorders the
+fields in the structs to avoid padding, by default. That means that
+the 64 bit pointer, being longer than the ints, our be positioned
+first, causing the problem.</p>
+<p>Marking the struct as extern solves it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-zig" data-lang="zig"><span style="display:flex;"><span><span style="color:#66d9ef">pub</span> <span style="color:#66d9ef">const</span> Point <span style="color:#f92672">=</span> <span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">struct</span>  {
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">:</span> <span style="color:#66d9ef">i32</span>,
+</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">:</span> <span style="color:#66d9ef">i32</span>,
+</span></span><span style="display:flex;"><span>    label<span style="color:#f92672">:</span> [<span style="color:#f92672">*:</span><span style="color:#ae81ff">0</span>]<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">u8</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div>
 
 </article>
 
