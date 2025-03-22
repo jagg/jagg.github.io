@@ -1,0 +1,405 @@
+<!doctype html>
+
+<html lang="en-us">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>Giving OCaml a try - Logos, Thumos &amp; Code</title>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Random ideas about programming" />
+<meta name="author" content="Jose A. Garcia" /><meta property="og:url" content="http://localhost:1313/posts/trying_ocaml/">
+  <meta property="og:site_name" content="Logos, Thumos & Code">
+  <meta property="og:title" content="Giving OCaml a try">
+  <meta property="og:description" content="During the last couple of weeks I’ve gone on a completely different direction. I happened to hear a few people saying good things about OCaml, and I was kind of missing coding with strong types, so I decided to reimplement my basic key value store (see the post), and see if it was fun to write.
+First of all, here is the result. The functionality is the same, a hash map over a network, using an “official” async library, and a basic client and server that receive and send S-Expressions over the wire.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-22T20:31:47+01:00">
+    <meta property="article:modified_time" content="2025-03-22T20:31:47+01:00">
+    <meta property="article:tag" content="Expriment">
+    <meta property="article:tag" content="Networking">
+    <meta property="article:tag" content="Async">
+    <meta property="og:image" content="http://localhost:1313/">
+
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/">
+  <meta name="twitter:title" content="Giving OCaml a try">
+  <meta name="twitter:description" content="During the last couple of weeks I’ve gone on a completely different direction. I happened to hear a few people saying good things about OCaml, and I was kind of missing coding with strong types, so I decided to reimplement my basic key value store (see the post), and see if it was fun to write.
+First of all, here is the result. The functionality is the same, a hash map over a network, using an “official” async library, and a basic client and server that receive and send S-Expressions over the wire.">
+
+<meta name="generator" content="Hugo 0.145.0">
+    
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="http://localhost:1313/js/mathjax-config.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+
+  <link rel="stylesheet" href="http://localhost:1313/css/normalize.min.css" />
+  <link rel="stylesheet" href="http://localhost:1313/fontawesome/css/all.min.css" />
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda" />
+  
+  
+  <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/styles.css" />
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      
+      <h1>
+        <a href="http://localhost:1313/">Logos, Thumos &amp; Code</a>
+      </h1>
+
+      <ul id="social-media">
+             <li>
+               <a href="https://github.com/jagg" title="GitHub">
+               <i class="fab fa-github fa-lg"></i>
+               </a>
+             </li>
+             <li>
+               <a href="https://twitter.com/jagarciagim" title="Twitter">
+               <i class="fab fa-twitter fa-lg"></i>
+               </a>
+             </li>
+      </ul>
+      
+      <p><em>Let&rsquo;s write some code</em></p>
+      
+    </header>
+
+    
+<nav>
+    <ul>
+        
+        <li>
+            <a class="" href="http://localhost:1313/categories">
+                <i class="fa-li fa  fa-lg"></i><span>Categories</span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="" href="http://localhost:1313/tags">
+                <i class="fa-li fa  fa-lg"></i><span>Tags</span>
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+
+
+    <main>
+
+
+
+
+<article>
+
+    <h1>Giving OCaml a try</h1>
+
+    
+      <aside>
+    <ul>
+        <li>
+            <time class="post-date" datetime="2025-03-22T20:31:47&#43;01:00">Mar 22, 2025</time>
+        </li>
+        
+        
+        <li>
+            Categories:
+            <em>
+                
+                    
+                    <a href="http://localhost:1313/categories/ocaml">OCaml</a>
+                
+            </em>
+        </li>
+        
+
+        
+        <li>
+            <em>
+                
+                    
+                    <a href="http://localhost:1313/tags/expriment">#expriment</a>
+                
+                    , 
+                    <a href="http://localhost:1313/tags/networking">#networking</a>
+                
+                    , 
+                    <a href="http://localhost:1313/tags/async">#async</a>
+                
+            </em>
+        </li>
+        
+
+        <li>7 minute read</li>
+    </ul>
+</aside>
+
+    
+
+    
+      
+<div class="featured_image">
+    <a href="http://localhost:1313/posts/trying_ocaml/" title="Giving OCaml a try">
+        <img src="">
+    </a>
+</div>
+
+
+    
+
+    <p>During the last couple of weeks I&rsquo;ve gone on a completely different
+direction. I happened to hear a few people saying good things about OCaml,
+and I was kind of missing coding with strong types, so I decided to
+reimplement my basic key value store (see the <a href="http://localhost:1313/posts/cledis/">post</a>),
+and see if it was fun to write.</p>
+<p>First of all, here is the
+<a href="https://github.com/jagg/ocledis">result</a>. The functionality is the
+same, a hash map over a network, using an &ldquo;official&rdquo; async library,
+and a basic client and server that receive and send S-Expressions over
+the wire.</p>
+<h2 id="what-did-i-like">What did I like?</h2>
+<h3 id="the-libraries-i-found-were-pretty-nice">The libraries I found were pretty nice!</h3>
+<p>For async and networking I picked
+<a href="https://github.com/ocaml-multicore/eio">Eio</a>, which is fairly modern,
+and based on io_uring. For Common Lisp I used
+<a href="https://github.com/orthecreedence/cl-async">cl-async</a>, which worked
+very well, but it seems it hasn&rsquo;t had much activity since 2015.</p>
+<p>Also, it turns out that OCaml has
+<a href="https://ocaml.org/docs/metaprogramming">preprocessors</a> able to
+generate code. It seems that they have access to the Abstract Syntax
+Tree of the sources, so they sound like something similar to Common
+Lisp macros. I used it to autogenerate the code to transform my types
+to S-Expressions, and it was really convenient!</p>
+<h3 id="the-build-system-and-tooling-just-works">The build system and tooling just works</h3>
+<p>Installing the environment through Opam was painless, and setting a
+project through Dune was very intuitive. Slightly easier than Common
+Lisp&rsquo;s ASDF, and massively better than CMake!</p>
+<h3 id="the-type-system-was-brilliant">The type system was brilliant</h3>
+<p>I generally prefer strongly typed languages, and OCaml didn&rsquo;t
+disappoint. The type inference allowed me iterate on my changes
+without having to go all over the place updating type signatures. Once
+I&rsquo;m happy with a module&rsquo;s API, I can properly define it in an
+interface.</p>
+<p>The types really helped me reason about he code, and forced me to
+specify corner cases I may have ignored otherwise. As a result the
+code is cleaner this time.</p>
+<h2 id="what-did-i-miss">What did I miss?</h2>
+<h3 id="interactive-coding">Interactive coding</h3>
+<p>OCaml has its own REPL, UTop. It works well, and has Dune integration,
+so it will find all the sources for the project. Sadly I couldn&rsquo;t make
+it work from Emacs. I did try it a bit from the console, but since it
+was a bit more out of the way I didn&rsquo;t use it that much.</p>
+<p>I missed the real time conversation between Sly/Slime and my code, and
+being able to test my functions immediately after writing them. I will
+have to investigate a bit more!</p>
+<h3 id="structured-editing">Structured editing</h3>
+<p>Editing S-Expressions through paredit is quite a nice
+experience. Being able to move around the code, change the scope of
+the expresions, and move parens around is very convenient, and it&rsquo;s a
+bit sad going back to do all those changes by hand.</p>
+<h2 id="and-what-about-the-code">And what about the code?</h2>
+<p>Well, I&rsquo;m not even half way through <a href="https://dev.realworldocaml.org/toc.html">Real World
+OCaml</a>, so I barely know what
+I&rsquo;m doing, but this is what I came up with.</p>
+<h3 id="the-store">The Store</h3>
+<p>In the same way I did for the Common Lisp version, the store is just a
+hash table. In Cledis I had to use locks to ensure two different
+threads don&rsquo;t try to update it at the same time, but in Eio I was able
+to handle the communication through a Stream. I have a single handler
+processing the queries from a single Fiber, so all the access is safe
+and serialized.</p>
+<p>It approaches an actor model, so adding things like sharding should be
+fairly intuitive. More things to investigate!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">open</span><span style="color:#f92672">!</span> <span style="color:#a6e22e">Base</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">open</span> Eio.<span style="color:#a6e22e">Std</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">&#39;</span>v command <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Set</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">&#39;</span>v
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Get</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">*</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>v option Promise.u<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">&#39;</span>v t <span style="color:#f92672">=</span> <span style="color:#66d9ef">&#39;</span>v command Eio.Stream.t
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> make sw <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> stream <span style="color:#f92672">=</span> Eio.Stream.create 120 <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> table <span style="color:#f92672">=</span> Hashtbl.create <span style="color:#f92672">(</span><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">String</span><span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> handler () <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">match</span> Eio.Stream.take stream <span style="color:#66d9ef">with</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">|</span> <span style="color:#a6e22e">Set</span> <span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> <span style="color:#66d9ef">value</span><span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">let</span> <span style="color:#f92672">_</span> <span style="color:#f92672">=</span> Hashtbl.add table <span style="color:#f92672">~</span>key <span style="color:#f92672">~</span>data<span style="color:#f92672">:</span><span style="color:#66d9ef">value</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>       handler ()
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">|</span> <span style="color:#a6e22e">Get</span> <span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> resolver<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">value</span> <span style="color:#f92672">=</span> Hashtbl.find table key <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>       Promise.resolve resolver <span style="color:#66d9ef">value</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>       handler ()
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  Fiber.fork <span style="color:#f92672">~</span>sw handler<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  stream
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> set store key <span style="color:#66d9ef">value</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Eio.Stream.add store <span style="color:#f92672">(</span><span style="color:#a6e22e">Set</span> <span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> <span style="color:#66d9ef">value</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> get store key <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> promise<span style="color:#f92672">,</span> resolver  <span style="color:#f92672">=</span> Promise.create () <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  Eio.Stream.add store <span style="color:#f92672">(</span><span style="color:#a6e22e">Get</span> <span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> resolver<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>  Promise.await promise
+</span></span></code></pre></div><h3 id="the-protocol">The protocol</h3>
+<p>This is pretty much equivalent to the old version, but now we have
+clearly defined types for commands and responses:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#66d9ef">value</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Num</span> <span style="color:#66d9ef">of</span> int32
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">String</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[@@</span>deriving sexp<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> command <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Set</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">value</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Get</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[@@</span>deriving sexp<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> response <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">All_ok</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Done</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">value</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">Error</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[@@</span>deriving sexp<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>And a couple of functions to send and receive lists of them over the
+wire:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> get_sexp_list of_sexp reader <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> Bytes.of_string <span style="color:#f92672">@@</span> Eio.Buf_read.take 4 reader <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> Int.of_int32_exn <span style="color:#f92672">(</span>Stdlib.Bytes.get_int32_be len 0<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> msg <span style="color:#f92672">=</span> Eio.Buf_read.take len reader <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> sexp <span style="color:#f92672">=</span> Parsexp.Single.parse_string_exn msg <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  of_sexp sexp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> send_sexp_list of_sexp objs writer <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> sexp <span style="color:#f92672">=</span> of_sexp objs <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> sexp <span style="color:#f92672">=</span> Sexplib.Sexp.to_string sexp <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> String.length sexp <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> buffer <span style="color:#f92672">=</span> Bytes.create <span style="color:#f92672">(</span>len <span style="color:#f92672">+</span> 4<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">(** Not sure if there is a way to write into the socket without allocating buffers *)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#f92672">_</span> <span style="color:#f92672">=</span> Encoding.push_str_exn 0 buffer sexp <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  Eio.Buf_write.bytes writer buffer
+</span></span></code></pre></div><p>And the specialized versions:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> get_responses reader <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  get_sexp_list <span style="color:#f92672">[%</span>of_sexp<span style="color:#f92672">:</span> response <span style="color:#66d9ef">list</span><span style="color:#f92672">]</span> reader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> send_responses responses writer <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  send_sexp_list <span style="color:#f92672">[%</span>sexp_of<span style="color:#f92672">:</span> response <span style="color:#66d9ef">list</span><span style="color:#f92672">]</span> responses writer 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> get_commands reader <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  get_sexp_list <span style="color:#f92672">[%</span>of_sexp<span style="color:#f92672">:</span> command <span style="color:#66d9ef">list</span><span style="color:#f92672">]</span>  reader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> send_commands commands writer <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  send_sexp_list <span style="color:#f92672">[%</span>sexp_of<span style="color:#f92672">:</span> command <span style="color:#66d9ef">list</span><span style="color:#f92672">]</span> commands writer
+</span></span></code></pre></div><h3 id="the-server--client">The Server &amp; Client</h3>
+<p>And here we just use Eio to make client and server talk.</p>
+<p>The server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> handle_client store flow <span style="color:#f92672">_</span>addr <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  traceln <span style="color:#e6db74">&#34;[SERVER] Got a connection&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">open</span> Kvlib.<span style="color:#a6e22e">Protocol</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> from_client <span style="color:#f92672">=</span> Eio.Buf_read.of_flow flow <span style="color:#f92672">~</span>max_size<span style="color:#f92672">:</span>4096 <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  Eio.Buf_write.with_flow flow <span style="color:#f92672">@@</span> <span style="color:#66d9ef">fun</span> to_client <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                                  <span style="color:#66d9ef">let</span> query <span style="color:#f92672">=</span> get_commands from_client <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                                  <span style="color:#66d9ef">let</span> query_str <span style="color:#f92672">=</span> Sexplib.Sexp.to_string_hum <span style="color:#f92672">([%</span>sexp_of<span style="color:#f92672">:</span> command <span style="color:#66d9ef">list</span><span style="color:#f92672">]</span> query<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                                  traceln <span style="color:#e6db74">&#34;[SERVER] Query: %s&#34;</span> query_str<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                                  <span style="color:#66d9ef">let</span> response <span style="color:#f92672">=</span> List.map <span style="color:#f92672">~</span>f<span style="color:#f92672">:(</span><span style="color:#66d9ef">fun</span> cmd <span style="color:#f92672">-&gt;</span> run_command store cmd<span style="color:#f92672">)</span> query <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                                  send_responses response to_client
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> run_server socket store <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Eio.Net.run_server socket <span style="color:#f92672">(</span>handle_client store<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>on_error<span style="color:#f92672">:(</span>traceln <span style="color:#e6db74">&#34;Error found: %a&#34;</span> Fmt.exn<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> server <span style="color:#f92672">~</span>net <span style="color:#f92672">~</span>addr <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Switch.run <span style="color:#f92672">~</span>name<span style="color:#f92672">:</span><span style="color:#e6db74">&#34;server&#34;</span> <span style="color:#f92672">@@</span> <span style="color:#66d9ef">fun</span> sw <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                               <span style="color:#66d9ef">let</span> store <span style="color:#f92672">=</span> Store.make sw <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                               traceln <span style="color:#e6db74">&#34;Store ready&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                               <span style="color:#66d9ef">let</span> socket <span style="color:#f92672">=</span> Eio.Net.listen net <span style="color:#f92672">~</span>sw <span style="color:#f92672">~</span>reuse_addr<span style="color:#f92672">:</span>true <span style="color:#f92672">~</span>backlog<span style="color:#f92672">:</span>5 addr <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                               traceln <span style="color:#e6db74">&#34;Server ready.&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                               Fiber.fork <span style="color:#f92672">~</span>sw <span style="color:#f92672">(</span><span style="color:#66d9ef">fun</span> () <span style="color:#f92672">-&gt;</span> run_server socket store<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>And finally, the client:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> run_client <span style="color:#f92672">~</span>net <span style="color:#f92672">~</span>addr <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Switch.run <span style="color:#f92672">@@</span> <span style="color:#66d9ef">fun</span> sw <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> flow <span style="color:#f92672">=</span> Eio.Net.connect <span style="color:#f92672">~</span>sw net addr <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">open</span> Kvlib.<span style="color:#a6e22e">Protocol</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">let</span> from_server <span style="color:#f92672">=</span> Eio.Buf_read.of_flow flow <span style="color:#f92672">~</span>max_size<span style="color:#f92672">:</span>4096 <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                Eio.Buf_write.with_flow flow <span style="color:#f92672">@@</span> <span style="color:#66d9ef">fun</span> to_server <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                                                <span style="color:#66d9ef">let</span> query <span style="color:#f92672">=</span> <span style="color:#f92672">[</span> <span style="color:#a6e22e">Set</span> <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;one&#34;</span><span style="color:#f92672">,</span> <span style="color:#a6e22e">Num</span> 2l<span style="color:#f92672">);</span> <span style="color:#a6e22e">Get</span> <span style="color:#e6db74">&#34;one&#34;</span> <span style="color:#f92672">]</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                                                send_commands query to_server<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                                                <span style="color:#66d9ef">let</span> response <span style="color:#f92672">=</span> get_responses from_server <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                                                <span style="color:#66d9ef">let</span> response <span style="color:#f92672">=</span> Sexplib.Sexp.to_string_hum <span style="color:#f92672">([%</span>sexp_of<span style="color:#f92672">:</span> response <span style="color:#66d9ef">list</span><span style="color:#f92672">]</span> response<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                                                traceln <span style="color:#e6db74">&#34;[CLIENT] Response: %s&#34;</span> response
+</span></span><span style="display:flex;"><span>                                                
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> client <span style="color:#f92672">~</span>net <span style="color:#f92672">~</span>addr <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Switch.run <span style="color:#f92672">@@</span> <span style="color:#66d9ef">fun</span> <span style="color:#f92672">_</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                traceln <span style="color:#e6db74">&#34;[CLIENT]: Starting&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                run_client <span style="color:#f92672">~</span>net <span style="color:#f92672">~</span>addr
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Eio_main.run <span style="color:#f92672">@@</span> <span style="color:#66d9ef">fun</span> env <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>                  client <span style="color:#f92672">~</span>net<span style="color:#f92672">:(</span>Eio.Stdenv.net env<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">~</span>addr<span style="color:#f92672">:(`</span><span style="color:#a6e22e">Tcp</span> <span style="color:#f92672">(</span>Eio.Net.Ipaddr.V4.loopback<span style="color:#f92672">,</span> 12342<span style="color:#f92672">))</span>
+</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>I still have a lot to learn about OCaml, but I was able to get a
+working server on just a few hours, and the experience was quite
+enjoyable. Also, having the type checker covering my back was nice.</p>
+<p>I have to admit that I came a bit worried about functional programming
+making the day to day coding too constraining, but, maybe because I
+don&rsquo;t know enough to make my life difficult, I felt fairly
+productive. A lot of the above code relies on mutation, and maybe
+there are more functional ways to do it, but I didn&rsquo;t feel that I was
+fighting the language to get here, which is a win in my mind.</p>
+<p>There are still many things to learn, so I think I will continue
+playing with Ocaml a bit longer!</p>
+
+
+</article>
+
+
+<section class="post-nav">
+    <ul>
+        <li>
+        
+            <a href="http://localhost:1313/posts/lisp_zig/"><i class="fa fa-chevron-circle-left"></i> Using Zig from Common Lisp</a>
+        
+        </li>
+        <li>
+        
+        </li>
+    </ul>
+</section>
+  
+    
+    
+  
+
+
+
+
+
+</main>
+    <footer>
+        <ul>
+            <li>
+                <h6>Copyright © 2025 - Jose A. Garcia | 
+                    Rendered by <a href="https://gohugo.io" title="Hugo">Hugo</a> |
+                    <a href="http://localhost:1313/index.xml">Subscribe </a></h6>
+            </li>
+            
+            
+        </ul>
+    </footer>
+</div>
+<script src="http://localhost:1313/js/scripts.js"></script>
+
+  
+
+
+</body>
+
+</html>
+
