@@ -2,7 +2,7 @@
 title = "Giving OCaml a try"
 date = 2025-03-22T20:31:47+01:00
 images = []
-tags = ["expriment", "networking", "async"]
+tags = ["experiment", "networking", "async"]
 categories = ["OCaml"]
 draft = false 
 +++

@@ -1,0 +1,432 @@
+<!doctype html>
+
+<html lang="en-us">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>A basic Write Ahead Log - Logos, Thumos &amp; Code</title>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Random ideas about programming" />
+<meta name="author" content="Jose A. Garcia" /><meta property="og:url" content="http://localhost:1313/posts/wal/">
+  <meta property="og:site_name" content="Logos, Thumos & Code">
+  <meta property="og:title" content="A basic Write Ahead Log">
+  <meta property="og:description" content="This weekend I decided to add some basic persistence to my Key-Value store. I considered going directly into B-Trees or LSM, but they are quite involved. Moving, forward I want to focus more on the distributed side of the store rather than low level storage details (saving those for later!), so for now I decided to implement something simpler, a basic Write Ahead Log (WAL, for short).
+What is a Write Ahead Log? This post from Oskar Dudycz does a much better job than I could explaining the theory, so I will just give the high level summary.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-30T12:05:49+02:00">
+    <meta property="article:modified_time" content="2025-03-30T12:05:49+02:00">
+    <meta property="article:tag" content="Experiment">
+    <meta property="article:tag" content="Data Bases">
+    <meta property="og:image" content="http://localhost:1313/">
+
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/">
+  <meta name="twitter:title" content="A basic Write Ahead Log">
+  <meta name="twitter:description" content="This weekend I decided to add some basic persistence to my Key-Value store. I considered going directly into B-Trees or LSM, but they are quite involved. Moving, forward I want to focus more on the distributed side of the store rather than low level storage details (saving those for later!), so for now I decided to implement something simpler, a basic Write Ahead Log (WAL, for short).
+What is a Write Ahead Log? This post from Oskar Dudycz does a much better job than I could explaining the theory, so I will just give the high level summary.">
+
+<meta name="generator" content="Hugo 0.145.0">
+    
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="http://localhost:1313/js/mathjax-config.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+
+  <link rel="stylesheet" href="http://localhost:1313/css/normalize.min.css" />
+  <link rel="stylesheet" href="http://localhost:1313/fontawesome/css/all.min.css" />
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda" />
+  
+  
+  <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/styles.css" />
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      
+      <h1>
+        <a href="http://localhost:1313/">Logos, Thumos &amp; Code</a>
+      </h1>
+
+      <ul id="social-media">
+             <li>
+               <a href="https://github.com/jagg" title="GitHub">
+               <i class="fab fa-github fa-lg"></i>
+               </a>
+             </li>
+             <li>
+               <a href="https://twitter.com/jagarciagim" title="Twitter">
+               <i class="fab fa-twitter fa-lg"></i>
+               </a>
+             </li>
+      </ul>
+      
+      <p><em>Let&rsquo;s write some code</em></p>
+      
+    </header>
+
+    
+<nav>
+    <ul>
+        
+        <li>
+            <a class="" href="http://localhost:1313/categories">
+                <i class="fa-li fa  fa-lg"></i><span>Categories</span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="" href="http://localhost:1313/tags">
+                <i class="fa-li fa  fa-lg"></i><span>Tags</span>
+            </a>
+        </li>
+        
+    </ul>
+</nav>
+
+
+    <main>
+
+
+
+
+<article>
+
+    <h1>A basic Write Ahead Log</h1>
+
+    
+      <aside>
+    <ul>
+        <li>
+            <time class="post-date" datetime="2025-03-30T12:05:49&#43;02:00">Mar 30, 2025</time>
+        </li>
+        
+        
+        <li>
+            Categories:
+            <em>
+                
+                    
+                    <a href="http://localhost:1313/categories/ocaml">OCaml</a>
+                
+            </em>
+        </li>
+        
+
+        
+        <li>
+            <em>
+                
+                    
+                    <a href="http://localhost:1313/tags/experiment">#experiment</a>
+                
+                    , 
+                    <a href="http://localhost:1313/tags/data-bases">#data bases</a>
+                
+            </em>
+        </li>
+        
+
+        <li>7 minute read</li>
+    </ul>
+</aside>
+
+    
+
+    
+      
+<div class="featured_image">
+    <a href="http://localhost:1313/posts/wal/" title="A basic Write Ahead Log">
+        <img src="">
+    </a>
+</div>
+
+
+    
+
+    <p>This weekend I decided to add some basic persistence to my <a href="https://github.com/jagg/ocledis">Key-Value
+store</a>. I considered going directly
+into B-Trees or LSM, but they are quite involved. Moving, forward I
+want to focus more on the distributed side of the store rather than low
+level storage details (saving those for later!), so for now I decided
+to implement something simpler, a basic Write Ahead Log (WAL, for short).</p>
+<h2 id="what-is-a-write-ahead-log">What is a Write Ahead Log?</h2>
+<p>This
+<a href="https://www.architecture-weekly.com/p/the-write-ahead-log-a-foundation">post</a>
+from Oskar Dudycz does a much better job than I could explaining the
+theory, so I will just give the high level summary.</p>
+<p>When a database receives an update (a new &lsquo;set&rsquo; operation), it has to
+store that into its memory representation of the store, which would
+eventually be backed in persistent disk storage. It will also
+replicate the data across other shards. If the database fails in the
+middle of those operations, the data could be lost, of leave the
+system in an inconsistent state!</p>
+<p>So how do we solve this problem? We just keep a file were we append
+all our updates sequentially. Appending to a file is simple and quick,
+and if we do this before acknowleding the update to the client, we
+will end up with a sequence of operations safely (well,
+<a href="https://notes.eatonphil.com/2025-03-27-things-that-go-wrong-with-disk-io.html">maybe</a>)
+store in disk that will help us reconstruct the state of our store in
+the case of a crash.</p>
+<h2 id="a-forever-growing-log">A forever growing log?</h2>
+<p>Well, it doesn&rsquo;t have to be, you can save checkpoints! When the WAL
+goes over a threshold (it could be size, and/or time), we just take a
+snapshot of the data in the store and save it into a checkpoint. Once
+it&rsquo;s clear, we can truncate the WAL.</p>
+<h2 id="my-implementation">My implementation</h2>
+<p>For this version I went with a very naive approach. All the updates to
+the store are currently serialized, so I know there is only one thread
+writing to the WAL, making it safe for me to do the checkpointing and
+WAL truncating at any point.</p>
+<p>Also, I&rsquo;m not paying much attention to performance, opening and
+closing files all the time. I&rsquo;ve never done any benchmarking or
+performance testing in OCaml, so I&rsquo;m saving that for a future post!</p>
+<h3 id="the-storage-interface">The Storage Interface</h3>
+<p>First I extracted the storage backend for the KV into an interface
+(before I was using a Hashtbl directly):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">open</span><span style="color:#f92672">!</span> <span style="color:#a6e22e">Base</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> t
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> create <span style="color:#f92672">:</span>  <span style="color:#66d9ef">unit</span> <span style="color:#f92672">-&gt;</span> t
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> put <span style="color:#f92672">:</span> t <span style="color:#f92672">-&gt;</span> key<span style="color:#f92672">:</span>Model.Key.t <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">value</span><span style="color:#f92672">:</span>Model.value <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> get <span style="color:#f92672">:</span> t <span style="color:#f92672">-&gt;</span> key<span style="color:#f92672">:</span>Model.Key.t <span style="color:#f92672">-&gt;</span> Model.value option
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> iter <span style="color:#f92672">:</span> t <span style="color:#f92672">-&gt;</span> f<span style="color:#f92672">:(</span>key<span style="color:#f92672">:</span>Model.Key.t <span style="color:#f92672">-&gt;</span> data<span style="color:#f92672">:</span>Model.value <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span><span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span>
+</span></span></code></pre></div><p>And moved my Hashtbl implementation into its own module:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">open</span><span style="color:#f92672">!</span> <span style="color:#a6e22e">Base</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> t <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Model.Key.t<span style="color:#f92672">,</span> Model.value<span style="color:#f92672">)</span> Hashtbl.t
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> create () <span style="color:#f92672">=</span> Hashtbl.create <span style="color:#f92672">(</span><span style="color:#66d9ef">module</span> Model.<span style="color:#a6e22e">Key</span><span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> put table <span style="color:#f92672">~</span>key <span style="color:#f92672">~</span><span style="color:#66d9ef">value</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Hashtbl.set table <span style="color:#f92672">~</span>key <span style="color:#f92672">~</span>data<span style="color:#f92672">:</span><span style="color:#66d9ef">value</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> get table <span style="color:#f92672">~</span>key <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Hashtbl.find table key
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> iter table <span style="color:#f92672">~</span>f <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Hashtbl.iteri table <span style="color:#f92672">~</span>f
+</span></span></code></pre></div><p>Now I can follow the same pattern for the WAL, and swap
+implementations later. This is the main type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> t <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  table <span style="color:#f92672">:</span> Storage_hashtbl.t<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">(** The path to the file storing the write ahead log *)</span>
+</span></span><span style="display:flex;"><span>  wal_path <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">(** The path to the file storing the checkpoint *)</span>
+</span></span><span style="display:flex;"><span>  checkpoint_path <span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">(** The number of operations we have so far, to trigger the checkpoint save*)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">mutable</span> operations <span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Note that for storage we use the Storage_hashtbl module we defined
+above, we keep the same Hashtbl implementation at the core of the new
+module!.</p>
+<p>The store currently supports two different types, int32 and strings,
+for both values and keys. We can represent each one in the same way,
+in both WAL, and checkpoint file:</p>
+<ul>
+<li>A first byte for the type: 0 for int32, 1 for string</li>
+<li>If it&rsquo;s an int32, the next 4 bytes contain the value</li>
+<li>If it&rsquo;s a string, the next 4 bytes contain the size, and the next n,
+the value of the string.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> store_value channel <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> Model.<span style="color:#a6e22e">Num</span> n <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">(** The type of int32 is 0 *)</span>
+</span></span><span style="display:flex;"><span>    Out_channel.output_byte channel 0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> buffer <span style="color:#f92672">=</span> Bytes.create 4 <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#f92672">_</span> <span style="color:#f92672">=</span> Encoding.push_int32_exn 0 buffer n <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>    Out_channel.output channel buffer 0 4
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> Model.<span style="color:#a6e22e">String</span> s <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">(** The type of string is 1 *)</span>
+</span></span><span style="display:flex;"><span>    Out_channel.output_byte channel 1<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> len <span style="color:#f92672">=</span> String.length s <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> buffer <span style="color:#f92672">=</span> Bytes.create <span style="color:#f92672">(</span>4 <span style="color:#f92672">+</span> len<span style="color:#f92672">)</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#f92672">_</span> <span style="color:#f92672">=</span> Encoding.push_str_exn 0 buffer s <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>    Out_channel.output channel buffer 0 <span style="color:#f92672">(</span>Bytes.length buffer<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>This means that we can use the same function to load both WAL and Checkpoint:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> load_data table path <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  In_channel.with_open_gen <span style="color:#f92672">[</span><span style="color:#a6e22e">Open_binary</span><span style="color:#f92672">]</span> 0o666 path
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span><span style="color:#66d9ef">fun</span> channel <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> read () <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">match</span> In_channel.input_byte channel <span style="color:#66d9ef">with</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">|</span> <span style="color:#a6e22e">None</span> <span style="color:#f92672">-&gt;</span> () <span style="color:#75715e">(** EOF *)</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">|</span> <span style="color:#a6e22e">Some</span> input_type <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">let</span> key <span style="color:#f92672">=</span> <span style="color:#66d9ef">match</span> input_type <span style="color:#66d9ef">with</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#f92672">|</span> 0 <span style="color:#f92672">-&gt;</span> Model.Key.<span style="color:#a6e22e">Num</span> <span style="color:#f92672">(</span>get_num channel<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#f92672">|</span> 1 <span style="color:#f92672">-&gt;</span> Model.Key.<span style="color:#a6e22e">String</span> <span style="color:#f92672">(</span>get_str channel<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#f92672">|</span> <span style="color:#f92672">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">raise</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">Failure</span> <span style="color:#e6db74">&#34;Type not Supported!&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">match</span> In_channel.input_byte channel <span style="color:#66d9ef">with</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">|</span> <span style="color:#a6e22e">None</span> <span style="color:#f92672">-&gt;</span> () <span style="color:#75715e">(** EOF *)</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">|</span> <span style="color:#a6e22e">Some</span> input_type <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">value</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">match</span> input_type <span style="color:#66d9ef">with</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">|</span> 0 <span style="color:#f92672">-&gt;</span> Model.<span style="color:#a6e22e">Num</span> <span style="color:#f92672">(</span>get_num channel<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">|</span> 1 <span style="color:#f92672">-&gt;</span> Model.<span style="color:#a6e22e">String</span> <span style="color:#f92672">(</span>get_str channel<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>               <span style="color:#f92672">|</span> <span style="color:#f92672">_</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">raise</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">Failure</span> <span style="color:#e6db74">&#34;Type not Supported!&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">let</span> <span style="color:#f92672">_</span> <span style="color:#f92672">=</span> Storage_hashtbl.put table<span style="color:#f92672">.</span>table <span style="color:#f92672">~</span>key <span style="color:#f92672">~</span><span style="color:#66d9ef">value</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>             read ()
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>       read ()
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>We also have a function to save the checkpoint on demand:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> save_checkpoint table <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  Out_channel.with_open_gen <span style="color:#f92672">[</span><span style="color:#a6e22e">Open_binary</span><span style="color:#f92672">;</span> <span style="color:#a6e22e">Open_creat</span><span style="color:#f92672">;</span> <span style="color:#a6e22e">Open_trunc</span><span style="color:#f92672">;</span> <span style="color:#a6e22e">Open_append</span><span style="color:#f92672">]</span> 0o666 table<span style="color:#f92672">.</span>checkpoint_path
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span><span style="color:#66d9ef">fun</span> out <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>       Storage_hashtbl.iter table<span style="color:#f92672">.</span>table <span style="color:#f92672">~</span>f<span style="color:#f92672">:(</span><span style="color:#66d9ef">fun</span> <span style="color:#f92672">~</span>key <span style="color:#f92672">~</span>data<span style="color:#f92672">:</span><span style="color:#66d9ef">value</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>           store_key out key<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>           store_value out <span style="color:#66d9ef">value</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>           Out_channel.flush out<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>And we all this happens when we get updates. First we add one to our
+operation count, and append to the WAL. If our count goes over the
+limit, we trigger the checkpoint, persisting all our data and
+truncating the WAL.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> put table <span style="color:#f92672">~</span>key <span style="color:#f92672">~</span><span style="color:#66d9ef">value</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  table<span style="color:#f92672">.</span>operations <span style="color:#f92672">&lt;-</span> table<span style="color:#f92672">.</span>operations <span style="color:#f92672">+</span> 1<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  Out_channel.with_open_gen <span style="color:#f92672">[</span><span style="color:#a6e22e">Open_binary</span><span style="color:#f92672">;</span> <span style="color:#a6e22e">Open_creat</span><span style="color:#f92672">;</span> <span style="color:#a6e22e">Open_append</span><span style="color:#f92672">]</span> 0o666 table<span style="color:#f92672">.</span>wal_path
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">(</span><span style="color:#66d9ef">fun</span> wal <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>       store_key wal key<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>       store_value wal <span style="color:#66d9ef">value</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>       Out_channel.flush wal<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>       Storage_hashtbl.put table<span style="color:#f92672">.</span>table <span style="color:#f92672">~</span>key <span style="color:#f92672">~</span><span style="color:#66d9ef">value</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> table<span style="color:#f92672">.</span>operations <span style="color:#f92672">&gt;</span> max_wal_size <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#f92672">_</span> <span style="color:#f92672">=</span> save_checkpoint table <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>    Stdlib.Sys.remove table<span style="color:#f92672">.</span>wal_path<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    table<span style="color:#f92672">.</span>operations <span style="color:#f92672">&lt;-</span> 0<span style="color:#f92672">;</span>
+</span></span></code></pre></div><p>We also have to make sure we load the WAL during start up:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> create () <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> table <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    table <span style="color:#f92672">=</span> Storage_hashtbl.create ()<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    wal_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./storage.bin&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    checkpoint_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;./checkpoint.bin&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    operations <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> Stdlib.Sys.file_exists table<span style="color:#f92672">.</span>checkpoint_path <span style="color:#66d9ef">then</span> load_checkpoint table<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> Stdlib.Sys.file_exists table<span style="color:#f92672">.</span>wal_path <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#f92672">_</span> <span style="color:#f92672">=</span> load_wal table <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>    save_checkpoint table<span style="color:#f92672">;</span> 
+</span></span><span style="display:flex;"><span>    Stdlib.Sys.remove table<span style="color:#f92672">.</span>wal_path<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span> ()<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>  table
+</span></span></code></pre></div><h3 id="is-it-still-quick">Is it still quick?</h3>
+<p>No.</p>
+<p>As you can see in the code above, we are opening and flushing the
+file for every write and read operation. In a real life system we
+would find a way to keep the file open for longer, maybe batch
+writes. But this is functional, and provides a baseline to compare
+performance, so should be a decent starting point, I think.</p>
+<p>So, I wrote a quick benchmark to see where we stand today. Let&rsquo;s run a
+1000 sets and gets, using the raw Hashtbl and the WAL backed one, and
+see what&rsquo;s the price of safety (at least naive safety)!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ocaml" data-lang="ocaml"><span style="display:flex;"><span><span style="color:#66d9ef">open</span><span style="color:#f92672">!</span> <span style="color:#a6e22e">Core</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">open</span><span style="color:#f92672">!</span> <span style="color:#a6e22e">Core_bench</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">(** dune exec -- ./bench.exe -ascii -quota 0.25 *)</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> amount <span style="color:#f92672">=</span> 1000
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> value_pairs <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  List.init amount <span style="color:#f92672">~</span>f<span style="color:#f92672">:(</span><span style="color:#66d9ef">fun</span> i <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;key&#34;</span> <span style="color:#f92672">^</span> string_of_int i<span style="color:#f92672">,</span> Int32.of_int_exn i<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">module</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Storage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">sig</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span> t
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">val</span> create <span style="color:#f92672">:</span>  <span style="color:#66d9ef">unit</span> <span style="color:#f92672">-&gt;</span> t
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">val</span> put <span style="color:#f92672">:</span> t <span style="color:#f92672">-&gt;</span> key<span style="color:#f92672">:</span>Kvlib.Model.Key.t <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">value</span><span style="color:#f92672">:</span>Kvlib.Model.value <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">unit</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">val</span> get <span style="color:#f92672">:</span> t <span style="color:#f92672">-&gt;</span> key<span style="color:#f92672">:</span>Kvlib.Model.Key.t <span style="color:#f92672">-&gt;</span> Kvlib.Model.value option
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Bench</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">S</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">Storage</span><span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">struct</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> run_bench () <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> table <span style="color:#f92672">=</span> S.create () <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>    List.iter value_pairs
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">~</span>f<span style="color:#f92672">:(</span><span style="color:#66d9ef">fun</span> <span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> <span style="color:#66d9ef">value</span><span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">let</span> key <span style="color:#f92672">=</span> Kvlib.Model.Key.<span style="color:#a6e22e">String</span> key <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">value</span> <span style="color:#f92672">=</span> Kvlib.Model.<span style="color:#a6e22e">Num</span> <span style="color:#66d9ef">value</span> <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>          S.put table <span style="color:#f92672">~</span>key <span style="color:#f92672">~</span><span style="color:#66d9ef">value</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">let</span> <span style="color:#f92672">_</span> <span style="color:#f92672">=</span> S.get table <span style="color:#f92672">~</span>key <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>          ()
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Bench_hashtbl</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Bench</span><span style="color:#f92672">(</span>Kvlib.<span style="color:#a6e22e">Storage_hashtbl</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Bench_wal</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Bench</span><span style="color:#f92672">(</span>Kvlib.<span style="color:#a6e22e">Write_ahead_log</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> benchmarks <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;Hashtable&#34;</span><span style="color:#f92672">,</span> Bench_hashtbl.run_bench
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">;</span> <span style="color:#e6db74">&#34;WAL&#34;</span><span style="color:#f92672">,</span> Bench_wal.run_bench<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> () <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  List.map benchmarks <span style="color:#f92672">~</span>f<span style="color:#f92672">:(</span><span style="color:#66d9ef">fun</span> <span style="color:#f92672">(</span>name<span style="color:#f92672">,</span> test<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>      Core_bench.Bench.Test.create <span style="color:#f92672">~</span>name test<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|&gt;</span> Core_bench.Bench.make_command
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|&gt;</span> Command_unix.run
+</span></span></code></pre></div><p>And if I run it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ dune exec -- ./bench.exe -ascii -quota 0.25
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Entering directory <span style="color:#e6db74">&#39;/home/tony/projects/ocaml/ocledis&#39;</span>
+</span></span><span style="display:flex;"><span>Leaving directory <span style="color:#e6db74">&#39;/home/tony/projects/ocaml/ocledis&#39;</span>
+</span></span><span style="display:flex;"><span>Estimated testing time 500ms <span style="color:#f92672">(</span><span style="color:#ae81ff">2</span> benchmarks x 250ms<span style="color:#f92672">)</span>. Change using <span style="color:#e6db74">&#39;-quota&#39;</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Name            Time/Run    mWd/Run   mjWd/Run   Prom/Run   Percentage
+</span></span><span style="display:flex;"><span> ----------- -------------- ---------- ---------- ---------- ------------
+</span></span><span style="display:flex;"><span>  Hashtable       248.27us    18.60kw    11.65kw    10.11kw        0.21%
+</span></span><span style="display:flex;"><span>  WAL         119_260.79us   809.65kw    17.89kw    16.35kw      100.00%
+</span></span></code></pre></div><p>So, it seems we are now about x480 times slower&hellip;</p>
+<p>While this is OK for this experiment, it&rsquo;s nowhere near an acceptable
+value in a production system, so I will have to implement some
+optimizations, and see if we can make that a bit better!</p>
+<p>In the meantime, all the code is available <a href="https://github.com/jagg/ocledis">here</a>.</p>
+
+
+</article>
+
+
+<section class="post-nav">
+    <ul>
+        <li>
+        
+            <a href="http://localhost:1313/posts/trying_ocaml/"><i class="fa fa-chevron-circle-left"></i> Giving OCaml a try</a>
+        
+        </li>
+        <li>
+        
+        </li>
+    </ul>
+</section>
+  
+    
+    
+  
+
+
+
+
+
+</main>
+    <footer>
+        <ul>
+            <li>
+                <h6>Copyright © 2025 - Jose A. Garcia | 
+                    Rendered by <a href="https://gohugo.io" title="Hugo">Hugo</a> |
+                    <a href="http://localhost:1313/index.xml">Subscribe </a></h6>
+            </li>
+            
+            
+        </ul>
+    </footer>
+</div>
+<script src="http://localhost:1313/js/scripts.js"></script>
+
+  
+
+
+</body>
+
+</html>
+

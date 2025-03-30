@@ -93,6 +93,69 @@
     
 
     <li class="first" >
+      <h1><a href="http://localhost:1313/posts/wal/" title="A basic Write Ahead Log">A basic Write Ahead Log</a></h1>
+      <aside>
+    <ul>
+        <li>
+            <time class="post-date" datetime="2025-03-30T12:05:49&#43;02:00">Mar 30, 2025</time>
+        </li>
+        
+        
+        <li>
+            Categories:
+            <em>
+                
+                    
+                    <a href="http://localhost:1313/categories/ocaml">OCaml</a>
+                
+            </em>
+        </li>
+        
+
+        
+        <li>
+            <em>
+                
+                    
+                    <a href="http://localhost:1313/tags/experiment">#experiment</a>
+                
+                    , 
+                    <a href="http://localhost:1313/tags/data-bases">#data bases</a>
+                
+            </em>
+        </li>
+        
+
+        <li>7 minute read</li>
+    </ul>
+</aside>
+
+      
+<div class="featured_image">
+    <a href="http://localhost:1313/posts/wal/" title="A basic Write Ahead Log">
+        <img src="">
+    </a>
+</div>
+
+
+      <p><p>This weekend I decided to add some basic persistence to my <a href="https://github.com/jagg/ocledis">Key-Value
+store</a>. I considered going directly
+into B-Trees or LSM, but they are quite involved. Moving, forward I
+want to focus more on the distributed side of the store rather than low
+level storage details (saving those for later!), so for now I decided
+to implement something simpler, a basic Write Ahead Log (WAL, for short).</p>
+<h2 id="what-is-a-write-ahead-log">What is a Write Ahead Log?</h2>
+<p>This
+<a href="https://www.architecture-weekly.com/p/the-write-ahead-log-a-foundation">post</a>
+from Oskar Dudycz does a much better job than I could explaining the
+theory, so I will just give the high level summary.</p></p>
+      
+      <a href="http://localhost:1313/posts/wal/">Read more…</a>
+      
+    </li>
+    
+
+    <li >
       <h1><a href="http://localhost:1313/posts/trying_ocaml/" title="Giving OCaml a try">Giving OCaml a try</a></h1>
       <aside>
     <ul>
@@ -117,7 +180,7 @@
             <em>
                 
                     
-                    <a href="http://localhost:1313/tags/expriment">#expriment</a>
+                    <a href="http://localhost:1313/tags/experiment">#experiment</a>
                 
                     , 
                     <a href="http://localhost:1313/tags/networking">#networking</a>
@@ -216,66 +279,6 @@ and some storage, or I can go up instead, and see how can I make it
 distributed, and play with some nice algorithms.</p></p>
       
       <a href="http://localhost:1313/posts/lisp_zig/">Read more…</a>
-      
-    </li>
-    
-
-    <li >
-      <h1><a href="http://localhost:1313/posts/cledis/" title="Redis from scratch, or Cledis">Redis from scratch, or Cledis</a></h1>
-      <aside>
-    <ul>
-        <li>
-            <time class="post-date" datetime="2025-03-02T12:46:38&#43;01:00">Mar 2, 2025</time>
-        </li>
-        
-        
-        <li>
-            Categories:
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/categories/common-lisp">common lisp</a>
-                
-            </em>
-        </li>
-        
-
-        
-        <li>
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/tags/networking">#networking</a>
-                
-                    , 
-                    <a href="http://localhost:1313/tags/async">#async</a>
-                
-            </em>
-        </li>
-        
-
-        <li>6 minute read</li>
-    </ul>
-</aside>
-
-      
-<div class="featured_image">
-    <a href="http://localhost:1313/posts/cledis/" title="Redis from scratch, or Cledis">
-        <img src="">
-    </a>
-</div>
-
-
-      <p><p>This week I was looking for something new, and I realised that I&rsquo;ve
-never tried to do any network programming using Common Lisp. Also,
-some time ago I came across the <a href="https://build-your-own.org/redis/#table-of-contents">Build your own
-Redis</a> book, but
-never tried to go through it. The project is perfect, it contains
-threading, networking, and even some async programming. I had no idea
-what the Common Lisp ecosystem for those things looks like, so it was
-time to find out.</p></p>
-      
-      <a href="http://localhost:1313/posts/cledis/">Read more…</a>
       
     </li>
     
