@@ -21,7 +21,7 @@
   <meta name="twitter:title" content="Logos, Thumos & Code">
   <meta name="twitter:description" content="Random ideas about programming">
 
-<meta name="generator" content="Hugo 0.145.0">
+<meta name="generator" content="Hugo 0.146.5">
     
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="http://localhost:1313/js/mathjax-config.js" defer></script>
@@ -93,6 +93,69 @@
     
 
     <li class="first" >
+      <h1><a href="http://localhost:1313/posts/replication/" title="Adding replication to the Key-Value Store">Adding replication to the Key-Value Store</a></h1>
+      <aside>
+    <ul>
+        <li>
+            <time class="post-date" datetime="2025-04-18T19:43:07&#43;02:00">Apr 18, 2025</time>
+        </li>
+        
+        
+        <li>
+            Categories:
+            <em>
+                
+                    
+                    <a href="http://localhost:1313/categories/ocaml">OCaml</a>
+                
+            </em>
+        </li>
+        
+
+        
+        <li>
+            <em>
+                
+                    
+                    <a href="http://localhost:1313/tags/databases">#databases</a>
+                
+            </em>
+        </li>
+        
+
+        <li>6 minute read</li>
+    </ul>
+</aside>
+
+      
+<div class="featured_image">
+    <a href="http://localhost:1313/posts/replication/" title="Adding replication to the Key-Value Store">
+        <img src="">
+    </a>
+</div>
+
+
+      <p><p>During the past few weeks I&rsquo;ve built a basic key-value store that
+persists data to disk. It works, but only as a single node, so there
+is a fixed limit on the amount of data it can store, and the througput
+it can sustain.</p>
+<p>We can make the store scale horizontally in two ways:</p>
+<ul>
+<li><strong>Replication</strong>, which keeps additional copies of the data in other nodes, improving
+throughput.</li>
+<li><strong>Sharding</strong>, which partitions the keys across different nodes, so that we can store more data.</li>
+</ul>
+<p>In this post I&rsquo;m going to tackle the first one, replication,
+refactoring the storage layer so that we can have as many replicas as
+we want serving reads. All the code is available in
+<a href="https://github.com/jagg/ocledis">GitHub</a>.</p></p>
+      
+      <a href="http://localhost:1313/posts/replication/">Read more…</a>
+      
+    </li>
+    
+
+    <li >
       <h1><a href="http://localhost:1313/posts/eio/" title="Notes on Eio">Notes on Eio</a></h1>
       <aside>
     <ul>
@@ -117,7 +180,7 @@
             <em>
                 
                     
-                    <a href="http://localhost:1313/tags/asyn">#asyn</a>
+                    <a href="http://localhost:1313/tags/async">#async</a>
                 
                     , 
                     <a href="http://localhost:1313/tags/networking">#networking</a>
@@ -213,71 +276,6 @@ from Oskar Dudycz does a much better job than I could explaining the
 theory, so I will just give the high level summary.</p></p>
       
       <a href="http://localhost:1313/posts/wal/">Read more…</a>
-      
-    </li>
-    
-
-    <li >
-      <h1><a href="http://localhost:1313/posts/trying_ocaml/" title="Giving OCaml a try">Giving OCaml a try</a></h1>
-      <aside>
-    <ul>
-        <li>
-            <time class="post-date" datetime="2025-03-22T20:31:47&#43;01:00">Mar 22, 2025</time>
-        </li>
-        
-        
-        <li>
-            Categories:
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/categories/ocaml">OCaml</a>
-                
-            </em>
-        </li>
-        
-
-        
-        <li>
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/tags/experiment">#experiment</a>
-                
-                    , 
-                    <a href="http://localhost:1313/tags/networking">#networking</a>
-                
-                    , 
-                    <a href="http://localhost:1313/tags/async">#async</a>
-                
-            </em>
-        </li>
-        
-
-        <li>7 minute read</li>
-    </ul>
-</aside>
-
-      
-<div class="featured_image">
-    <a href="http://localhost:1313/posts/trying_ocaml/" title="Giving OCaml a try">
-        <img src="">
-    </a>
-</div>
-
-
-      <p><p>During the last couple of weeks I&rsquo;ve gone on a completely different
-direction. I happened to hear a few people saying good things about OCaml,
-and I was kind of missing coding with strong types, so I decided to
-reimplement my basic key value store (see the <a href="http://localhost:1313/posts/cledis/">post</a>),
-and see if it was fun to write.</p>
-<p>First of all, here is the
-<a href="https://github.com/jagg/ocledis">result</a>. The functionality is the
-same, a hash map over a network, using an &ldquo;official&rdquo; async library,
-and a basic client and server that receive and send S-Expressions over
-the wire.</p></p>
-      
-      <a href="http://localhost:1313/posts/trying_ocaml/">Read more…</a>
       
     </li>
     

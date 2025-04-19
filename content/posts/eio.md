@@ -2,7 +2,7 @@
 title = "Notes on Eio"
 date = 2025-04-05T10:01:15+02:00
 images = []
-tags = ["asyn", "networking", "eio"]
+tags = ["async", "networking", "eio"]
 categories = ["OCaml"]
 draft = false
 +++
