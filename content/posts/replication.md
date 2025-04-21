@@ -207,7 +207,7 @@ What we have today is a basic skeleton that can be used to experiment
 with more complex algorithms. Things are getting interesting!
 
 All the code is available [here](https://github.com/jagg/ocledis). If
-you came this far I would love to here you comments and feedback. You
+you came this far I would love to hear you comments and feedback. You
 can find me on [X / Twitter](https://x.com/jagarciagim)!
 
 
