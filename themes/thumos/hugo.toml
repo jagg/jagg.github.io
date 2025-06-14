@@ -3,23 +3,23 @@ languageCode = 'en-US'
 title = 'Dev Notes'
 
 [params]
-  description = "A collection of programming notes, tutorials, and insights from a software developer's journey."
-  github = "https://github.com/yourusername"
-  linkedin = "https://linkedin.com/in/yourprofile"
-  profileImage = "/images/profile.jpg"
+description = "A collection of programming notes, tutorials, and insights from a software developer's journey."
+github = "https://github.com/yourusername"
+linkedin = "https://linkedin.com/in/yourprofile"
+profileImage = "/images/profile.jpg"
 
 [menus]
-  [[menus.main]]
-    name = 'Home'
-    pageRef = '/'
-    weight = 10
+[[menus.main]]
+name = 'Home'
+pageRef = '/'
+weight = 10
 
-  [[menus.main]]
-    name = 'Blog'
-    pageRef = '/posts'
-    weight = 20
+[[menus.main]]
+name = 'Blog'
+pageRef = '/posts'
+weight = 20
 
 [module]
-  [module.hugoVersion]
-    extended = false
-    min = '0.146.0'
+[module.hugoVersion]
+extended = false
+min = '0.146.0'
