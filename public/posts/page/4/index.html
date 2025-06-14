@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Blog | Logos, Thumos &amp; Code</title>
+
+    <link rel="stylesheet" href="http://localhost:1313/css/main.css">
+
+
+      <script src="http://localhost:1313/js/main.js"></script>
+
+
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="http://localhost:1313/">Home</a></li>
+          <li><a href="http://localhost:1313/posts">Blog</a></li>
+        </ul>
+      </div>
+
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Recent Posts</h3>
+        <ul>
+          
+            <li>
+              <a href="http://localhost:1313/posts/leader_election/" >
+                Leader election using Raft
+              </a>
+              <div class="post-date">
+                May 26
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/replication/" >
+                Adding replication to the Key-Value …
+              </a>
+              <div class="post-date">
+                Apr 18
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/eio/" >
+                Notes on Eio
+              </a>
+              <div class="post-date">
+                Apr 5
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/wal/" >
+                A basic Write Ahead Log
+              </a>
+              <div class="post-date">
+                Mar 30
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/trying_ocaml/" >
+                Giving OCaml a try
+              </a>
+              <div class="post-date">
+                Mar 22
+              </div>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Connect</h3>
+        <ul>
+          
+            <li><a href="https://github.com/jagg" target="_blank" rel="noopener">GitHub</a></li>
+          
+          
+            <li><a href="https://linkedin.com/in/jose-a-garcia-gimeno" target="_blank" rel="noopener">LinkedIn</a></li>
+          
+          
+            <li><a href="https://twitter.com/jagarciagim" target="_blank" rel="noopener">Twitter</a></li>
+          
+          
+            <li><a href="https://bsky.app/profile/jagargim.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </aside>
+
+    <div class="main-content">
+      <header>
+        <h1><a href="http://localhost:1313/">Logos, Thumos &amp; Code</a></h1>
+<nav>
+  
+  <ul>
+      <li>
+        <a href="http://localhost:1313/categories">Categories</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/tags">Tags</a>
+      </li>
+  </ul>
+</nav>
+      </header>
+      <main>
+        
+<div class="blog-header">
+  <h1>Blog</h1>
+  
+    <p>Code snippets, tutorials, and technical notes from my programming adventures. Each post is a lesson learned or a problem solved.</p>
+
+  
+</div>
+
+<div class="posts-list">
+  
+    <article class="post-card">
+      <header>
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/css-test/">CSS Grid Layout Fundamentals</a>
+        </h2>
+        <div class="post-meta">
+          <time datetime="2024-01-20">
+            January 20, 2024
+          </time>
+          
+            
+              <span class="tag">#css</span>
+            
+              <span class="tag">#grid</span>
+            
+              <span class="tag">#layout</span>
+            
+          
+        </div>
+      </header>
+      
+        <div class="post-summary">
+          <p>CSS Grid is a powerful layout system that allows you to create complex layouts with ease. Here&rsquo;s a quick example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">container</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">grid</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-template-columns</span>: <span style="color:#a6e22e">repeat</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>fr);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-gap</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">max-width</span>: <span style="color:#ae81ff">1200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This creates a three-column grid with equal width columns and 20px gaps between them.</p>
+          
+            <a href="http://localhost:1313/posts/css-test/">Read more →</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="post-card">
+      <header>
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/post-3/">Git Workflow: Feature Branches and Clean History</a>
+        </h2>
+        <div class="post-meta">
+          <time datetime="2023-03-15">
+            March 15, 2023
+          </time>
+          
+            
+              <span class="tag">#git</span>
+            
+              <span class="tag">#workflow</span>
+            
+              <span class="tag">#version-control</span>
+            
+          
+        </div>
+      </header>
+      
+        <div class="post-summary">
+          <p>A clean Git history is essential for maintainable projects. Here&rsquo;s my approach to feature branches and keeping commits organized.</p>
+          
+            <a href="http://localhost:1313/posts/post-3/">Read more →</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="post-card">
+      <header>
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/post-2/">JavaScript Async/Await vs Promises</a>
+        </h2>
+        <div class="post-meta">
+          <time datetime="2023-02-15">
+            February 15, 2023
+          </time>
+          
+            
+              <span class="tag">#javascript</span>
+            
+              <span class="tag">#async</span>
+            
+              <span class="tag">#promises</span>
+            
+          
+        </div>
+      </header>
+      
+        <div class="post-summary">
+          <p>While both async/await and Promises handle asynchronous operations in JavaScript, they offer different approaches to writing and reading async code.</p>
+          
+            <a href="http://localhost:1313/posts/post-2/">Read more →</a>
+          
+        </div>
+      
+    </article>
+  
+</div>
+
+
+  <nav class="pagination">
+    
+      <a href="http://localhost:1313/posts/page/3/" class="pagination-prev">← Previous</a>
+    
+    
+      <a href="http://localhost:1313/posts/page/5/" class="pagination-next">Next →</a>
+    
+  </nav>
+
+
+      </main>
+      <footer>
+        <p>&copy; 2025 Logos, Thumos &amp; Code. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+  <style>
+    .sidebar-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .sidebar-section h3 {
+      margin-top: 0 !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .sidebar-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .active-post {
+      color: #2d5016 !important;
+      background-color: #e8f5e8 !important;
+      padding-left: 0.5rem !important;
+    }
+
+    .post-date {
+      font-size: 11px;
+      color: #888;
+      margin-top: 0.2rem;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .sidebar-tag {
+      font-size: 11px;
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 2px;
+      color: #666;
+    }
+  </style>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>JavaScript Async/Await vs Promises | Dev Notes</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+
+
+      <script src="/js/main.js"></script>
+
+
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h3>Navigation</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/posts">Blog</a></li>
+      </ul>
+      
+      
+      
+      
+        <h3>Recent Posts</h3>
+        <ul>
+          
+            <li>
+              <a href="/posts/css-test/" >
+                CSS Grid Layout Fundamentals
+              </a>
+              <div style="font-size: 11px; color: #888; margin-top: 0.2rem;">
+                Jan 20
+              </div>
+            </li>
+          
+            <li>
+              <a href="/posts/post-3/" >
+                Git Workflow: Feature Branches and …
+              </a>
+              <div style="font-size: 11px; color: #888; margin-top: 0.2rem;">
+                Mar 15
+              </div>
+            </li>
+          
+            <li>
+              <a href="/posts/post-2/" style="color: #2d5016; background-color: #e8f5e8; padding-left: 0.5rem;">
+                JavaScript Async/Await vs Promises
+              </a>
+              <div style="font-size: 11px; color: #888; margin-top: 0.2rem;">
+                Feb 15
+              </div>
+            </li>
+          
+            <li>
+              <a href="/posts/post-1/" >
+                Python List Comprehensions: Beyond …
+              </a>
+              <div style="font-size: 11px; color: #888; margin-top: 0.2rem;">
+                Jan 15
+              </div>
+            </li>
+          
+        </ul>
+      
+      
+      
+        <h3>Connect</h3>
+        <ul>
+          <li><a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a></li>
+          
+            <li><a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a></li>
+          
+        </ul>
+      
+      
+      
+        <h3>Tags</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
+          
+            <span style="font-size: 11px; background: #f0f0f0; padding: 0.2rem 0.4rem; border-radius: 2px; color: #666;">
+              #javascript
+            </span>
+          
+            <span style="font-size: 11px; background: #f0f0f0; padding: 0.2rem 0.4rem; border-radius: 2px; color: #666;">
+              #async
+            </span>
+          
+            <span style="font-size: 11px; background: #f0f0f0; padding: 0.2rem 0.4rem; border-radius: 2px; color: #666;">
+              #promises
+            </span>
+          
+        </div>
+      
+    </aside>
+    
+    <div class="main-content">
+      <header>
+        <h1><a href="/">Dev Notes</a></h1>
+<nav>
+  
+  <ul>
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li>
+        <a aria-current="true" class="ancestor" href="/posts/">Blog</a>
+      </li>
+  </ul>
+</nav>
+      </header>
+      <main>
+        
+<article class="post">
+  <header class="post-header">
+    <h1>JavaScript Async/Await vs Promises</h1>
+    <div class="post-meta">
+      <time datetime="2023-02-15">
+        February 15, 2023
+      </time>
+      
+        <div class="post-tags">
+          
+            <span class="tag">#javascript</span>
+          
+            <span class="tag">#async</span>
+          
+            <span class="tag">#promises</span>
+          
+        </div>
+      
+    </div>
+  </header>
+
+  <div class="post-content">
+    <p>While both async/await and Promises handle asynchronous operations in JavaScript, they offer different approaches to writing and reading async code.</p>
+<h2 id="promise-chains">Promise Chains</h2>
+<p>Traditional Promise syntax uses <code>.then()</code> and <code>.catch()</code> methods:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchUserData</span>(<span style="color:#a6e22e">userId</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">userId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>)
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>())
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">userData</span> =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`/api/posts/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">userData</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>())
+</span></span><span style="display:flex;"><span>    .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">error</span> =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#39;Error:&#39;</span>, <span style="color:#a6e22e">error</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">error</span>;
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="asyncawait-syntax">Async/Await Syntax</h2>
+<p>The same logic with async/await is more readable:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchUserData</span>(<span style="color:#a6e22e">userId</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">userId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">userData</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">postsResponse</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`/api/posts/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">userData</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">postsResponse</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">posts</span>;
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#39;Error:&#39;</span>, <span style="color:#a6e22e">error</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">error</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="when-to-use-each">When to Use Each</h2>
+<ul>
+<li><strong>Async/await</strong>: Better for sequential operations and complex error handling</li>
+<li><strong>Promises</strong>: Good for parallel operations and functional programming patterns</li>
+<li><strong>Mix both</strong>: Use <code>Promise.all()</code> with await for concurrent operations</li>
+</ul>
+<p>Remember that async/await is syntactic sugar over Promises - under the hood, they&rsquo;re the same thing.</p>
+<h2 id="error-handling-comparison">Error Handling Comparison</h2>
+<p>Here&rsquo;s how error handling differs between the two approaches:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// Promise chains - errors bubble up through .catch()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;/api/data&#39;</span>)
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">`HTTP error! status: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">status</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>  })
+</span></span><span style="display:flex;"><span>  .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; <span style="color:#a6e22e">processData</span>(<span style="color:#a6e22e">data</span>))
+</span></span><span style="display:flex;"><span>  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">error</span> =&gt; <span style="color:#a6e22e">handleError</span>(<span style="color:#a6e22e">error</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Async/await - use try/catch blocks
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">getData</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;/api/data&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">`HTTP error! status: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">status</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">processData</span>(<span style="color:#a6e22e">data</span>);
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">handleError</span>(<span style="color:#a6e22e">error</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The dark theme code blocks make syntax highlighting much more readable, especially for longer code examples like these.</p>
+  </div>
+
+  
+    <nav class="post-navigation">
+      
+        <div class="nav-prev">
+          <a href="/posts/post-1/" rel="prev">
+            <span class="nav-label">← Previous Post</span>
+            <span class="nav-title">Python List Comprehensions: Beyond the Basics</span>
+          </a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="/posts/post-3/" rel="next">
+            <span class="nav-label">Next Post →</span>
+            <span class="nav-title">Git Workflow: Feature Branches and Clean History</span>
+          </a>
+        </div>
+      
+    </nav>
+  
+</article>
+
+      </main>
+      <footer>
+        <p>&copy; 2025 Dev Notes. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

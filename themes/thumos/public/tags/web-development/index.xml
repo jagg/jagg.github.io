@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web-Development on Dev Notes</title>
+    <link>http://localhost:1313/tags/web-development/</link>
+    <description>Recent content in Web-Development on Dev Notes</description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <lastBuildDate>Wed, 15 Feb 2023 10:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/web-development/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building Responsive Web Layouts</title>
+      <link>http://localhost:1313/posts/post-2/</link>
+      <pubDate>Wed, 15 Feb 2023 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-2/</guid>
+      <description>&lt;p&gt;Creating responsive web layouts that work seamlessly across devices has become essential in modern web development. With the variety of screen sizes and devices available today, it&amp;rsquo;s crucial that our websites adapt gracefully to provide the best user experience.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-mobile-first-approach&#34;&gt;The Mobile-First Approach&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve found that starting with mobile designs and progressively enhancing for larger screens leads to better results. This approach forces you to focus on the essential content and functionality first.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Getting Started with Hugo</title>
+      <link>http://localhost:1313/posts/post-1/</link>
+      <pubDate>Sun, 15 Jan 2023 09:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-1/</guid>
+      <description>&lt;p&gt;Hugo is an amazing static site generator that makes building fast, modern websites incredibly easy. After working with various content management systems over the years, I&amp;rsquo;ve found Hugo to be one of the most developer-friendly tools available.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-i-love-hugo&#34;&gt;Why I Love Hugo&lt;/h2&gt;&#xA;&lt;p&gt;Here are some of the key reasons why Hugo has become my go-to choice for building websites:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Lightning Fast&lt;/strong&gt;: Hugo builds sites in milliseconds, not seconds&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;No Dependencies&lt;/strong&gt;: Just a single binary file to install&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Flexible&lt;/strong&gt;: Works great for blogs, documentation, portfolios, and more&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Great Community&lt;/strong&gt;: Excellent themes and helpful community support&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h2&gt;&#xA;&lt;p&gt;If you&amp;rsquo;re considering Hugo for your next project, I highly recommend giving it a try. The learning curve is gentle, and the documentation is excellent.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

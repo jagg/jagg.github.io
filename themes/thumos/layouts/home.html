@@ -1,7 +1,52 @@
 {{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
+<div class="home-hero">
+  <div class="social-links-top">
+    <a href="/posts">📝 Blog</a>
+    {{ if site.Params.author.github }}
+      <a href="https://github.com/{{ site.Params.author.github }}" target="_blank" rel="noopener">🐙 GitHub</a>
+    {{ end }}
+    {{ if site.Params.author.linkedin }}
+      <a href="https://linkedin.com/in/{{ site.Params.author.linkedin }}" target="_blank" rel="noopener">💼 LinkedIn</a>
+    {{ end }}
+    {{ if site.Params.author.twitter }}
+      <a href="https://twitter.com/{{ site.Params.author.twitter }}" target="_blank" rel="noopener">🐦 Twitter</a>
+    {{ end }}
+    {{ if site.Params.author.bluesky }}
+      <a href="https://bsky.app/profile/{{ site.Params.author.bluesky }}" target="_blank" rel="noopener">🦋 Bluesky</a>
+    {{ end }}
+  </div>
+
+  <div class="greeting">Hello, I'm {{ site.Params.author.name | default site.Title }}</div>
+
+  {{ if .Content }}
+  <div class="home-description-section">
+    {{ if site.Params.profileImage }}
+      <img src="{{ site.Params.profileImage }}" alt="{{ site.Title }}" class="profile-image">
+    {{ end }}
+    <div class="home-content">
+      {{ .Content }}
+    </div>
+  </div>
   {{ end }}
+</div>
+
+<div class="recent-posts">
+  <h2>Latest Posts</h2>
+  <div class="posts-preview">
+    {{ range first 3 (where site.RegularPages "Section" "posts") }}
+      <article class="post-preview">
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <div class="post-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+          {{ if .Params.tags }}
+            {{ range first 2 .Params.tags }}
+              <span class="tag">#{{ . }}</span>
+            {{ end }}
+          {{ end }}
+        </div>
+        <p>{{ .Summary | truncate 150 }}</p>
+      </article>
+    {{ end }}
+  </div>
+</div>
 {{ end }}

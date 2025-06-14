@@ -1,146 +1,159 @@
-<!doctype html>
-
-<html lang="en-us">
-
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <title>Back to basics - Logos, Thumos &amp; Code</title>
-  <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Random ideas about programming" />
-<meta name="author" content="Jose A. Garcia" /><meta property="og:url" content="http://localhost:1313/posts/back-to-basics/">
-  <meta property="og:site_name" content="Logos, Thumos & Code">
-  <meta property="og:title" content="Back to basics">
-  <meta property="og:description" content="During the past few years my work as a software engineer has involved less low level, algorithmic coding, and more high level strategy, architecture, dependency and team interactions. While that makes sense as careen progresion (I have more impact that way), the truth is that I miss coding things from scratch.
-Also, with the coming of our AI overlords, I keep on hearing that these skills, that I’ve spent years improving, are going to, if not disappear, become less relevant. In the not so far future, we will be able to pay a fee to one of the remaining AI providers, and ask an agent to generate our app, and set up a new business from scratch. In that world nobody will need to look at code anymore!">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2025-02-22T09:50:03+01:00">
-    <meta property="article:modified_time" content="2025-02-22T09:50:03+01:00">
-    <meta property="article:tag" content="Existential Dread">
-    <meta property="article:tag" content="New Beginnings">
-    <meta property="og:image" content="http://localhost:1313/">
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Back to basics | Logos, Thumos &amp; Code</title>
+
+    <link rel="stylesheet" href="http://localhost:1313/css/main.css">
 
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/">
-  <meta name="twitter:title" content="Back to basics">
-  <meta name="twitter:description" content="During the past few years my work as a software engineer has involved less low level, algorithmic coding, and more high level strategy, architecture, dependency and team interactions. While that makes sense as careen progresion (I have more impact that way), the truth is that I miss coding things from scratch.
-Also, with the coming of our AI overlords, I keep on hearing that these skills, that I’ve spent years improving, are going to, if not disappear, become less relevant. In the not so far future, we will be able to pay a fee to one of the remaining AI providers, and ask an agent to generate our app, and set up a new business from scratch. In that world nobody will need to look at code anymore!">
+      <script src="http://localhost:1313/js/main.js"></script>
 
-<meta name="generator" content="Hugo 0.146.5">
-    
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="http://localhost:1313/js/mathjax-config.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
 
-  <link rel="stylesheet" href="http://localhost:1313/css/normalize.min.css" />
-  <link rel="stylesheet" href="http://localhost:1313/fontawesome/css/all.min.css" />
-  
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda" />
-  
-  
-  <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/styles.css" />
 </head>
-
 <body>
-  <div id="container">
-    <header>
-      
-      <h1>
-        <a href="http://localhost:1313/">Logos, Thumos &amp; Code</a>
-      </h1>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="http://localhost:1313/">Home</a></li>
+          <li><a href="http://localhost:1313/posts">Blog</a></li>
+        </ul>
+      </div>
 
-      <ul id="social-media">
-             <li>
-               <a href="https://github.com/jagg" title="GitHub">
-               <i class="fab fa-github fa-lg"></i>
-               </a>
-             </li>
-             <li>
-               <a href="https://twitter.com/jagarciagim" title="Twitter">
-               <i class="fab fa-twitter fa-lg"></i>
-               </a>
-             </li>
-      </ul>
       
-      <p><em>Let&rsquo;s write some code</em></p>
-      
-    </header>
 
-    
+      
+      <div class="sidebar-section">
+        <h3>Recent Posts</h3>
+        <ul>
+          
+            <li>
+              <a href="http://localhost:1313/posts/leader_election/" >
+                Leader election using Raft
+              </a>
+              <div class="post-date">
+                May 26
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/replication/" >
+                Adding replication to the Key-Value …
+              </a>
+              <div class="post-date">
+                Apr 18
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/eio/" >
+                Notes on Eio
+              </a>
+              <div class="post-date">
+                Apr 5
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/wal/" >
+                A basic Write Ahead Log
+              </a>
+              <div class="post-date">
+                Mar 30
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/trying_ocaml/" >
+                Giving OCaml a try
+              </a>
+              <div class="post-date">
+                Mar 22
+              </div>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Connect</h3>
+        <ul>
+          
+            <li><a href="https://github.com/jagg" target="_blank" rel="noopener">GitHub</a></li>
+          
+          
+            <li><a href="https://linkedin.com/in/jose-a-garcia-gimeno" target="_blank" rel="noopener">LinkedIn</a></li>
+          
+          
+            <li><a href="https://twitter.com/jagarciagim" target="_blank" rel="noopener">Twitter</a></li>
+          
+          
+            <li><a href="https://bsky.app/profile/jagargim.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Tags</h3>
+        <div class="tags-container">
+          
+            <span class="sidebar-tag">
+              #existential dread
+            </span>
+          
+            <span class="sidebar-tag">
+              #new beginnings
+            </span>
+          
+        </div>
+      </div>
+      
+    </aside>
+
+    <div class="main-content">
+      <header>
+        <h1><a href="http://localhost:1313/">Logos, Thumos &amp; Code</a></h1>
 <nav>
-    <ul>
-        
-        <li>
-            <a class="" href="http://localhost:1313/categories">
-                <i class="fa-li fa  fa-lg"></i><span>Categories</span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="" href="http://localhost:1313/tags">
-                <i class="fa-li fa  fa-lg"></i><span>Tags</span>
-            </a>
-        </li>
-        
-    </ul>
+  
+  <ul>
+      <li>
+        <a href="http://localhost:1313/categories">Categories</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/tags">Tags</a>
+      </li>
+  </ul>
 </nav>
-
-
-    <main>
-
-
-
-
-<article>
-
+      </header>
+      <main>
+        
+<article class="post">
+  <header class="post-header">
     <h1>Back to basics</h1>
-
-    
-      <aside>
-    <ul>
-        <li>
-            <time class="post-date" datetime="2025-02-22T09:50:03&#43;01:00">Feb 22, 2025</time>
-        </li>
-        
-        
-        <li>
-            Categories:
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/categories/opinion">opinion</a>
-                
-            </em>
-        </li>
-        
-
-        
-        <li>
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/tags/existential-dread">#existential dread</a>
-                
-                    , 
-                    <a href="http://localhost:1313/tags/new-beginnings">#new beginnings</a>
-                
-            </em>
-        </li>
-        
-
-        <li>2 minute read</li>
-    </ul>
-</aside>
-
-    
-
-    
+    <div class="post-meta">
+      <time datetime="2025-02-22">
+        February 22, 2025
+      </time>
       
+        <div class="post-tags">
+          
+            <span class="tag">#existential dread</span>
+          
+            <span class="tag">#new beginnings</span>
+          
+        </div>
+      
+    </div>
+  </header>
 
-    
-
+  <div class="post-content">
     <p>During the past few years my work as a software engineer has involved
 less low level, algorithmic coding, and more high level strategy,
 architecture, dependency and team interactions. While that makes sense
@@ -164,50 +177,85 @@ look back after a few months and see what I&rsquo;ve been doing!</p>
 will contain more than a few mistakes, but that&rsquo;s the point! I&rsquo;ll be
 learning and hopefully having fun along the way.</p>
 
+  </div>
 
+  
+    <nav class="post-navigation">
+      
+        <div class="nav-prev">
+          <a href="http://localhost:1313/posts/css-test/" rel="prev">
+            <span class="nav-label">← Previous Post</span>
+            <span class="nav-title">CSS Grid Layout Fundamentals</span>
+          </a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="http://localhost:1313/posts/base64/" rel="next">
+            <span class="nav-label">Next Post →</span>
+            <span class="nav-title">Base64 Encoding &amp; Decoding</span>
+          </a>
+        </div>
+      
+    </nav>
+  
 </article>
 
+      </main>
+      <footer>
+        <p>&copy; 2025 Logos, Thumos &amp; Code. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+  <style>
+    .sidebar-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
 
-<section class="post-nav">
-    <ul>
-        <li>
-        
-        </li>
-        <li>
-        
-            <a href="http://localhost:1313/posts/base64/">Base64 Encoding &amp; Decoding <i class="fa fa-chevron-circle-right"></i> </a>
-        
-        </li>
-    </ul>
-</section>
-  
-    
-    
-  
+    .sidebar-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
 
+    .sidebar-section h3 {
+      margin-top: 0 !important;
+      margin-bottom: 1rem !important;
+    }
 
+    .sidebar-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      margin: 0;
+    }
 
+    .active-post {
+      color: #2d5016 !important;
+      background-color: #e8f5e8 !important;
+      padding-left: 0.5rem !important;
+    }
 
+    .post-date {
+      font-size: 11px;
+      color: #888;
+      margin-top: 0.2rem;
+    }
 
-</main>
-    <footer>
-        <ul>
-            <li>
-                <h6>Copyright © 2025 - Jose A. Garcia | 
-                    Rendered by <a href="https://gohugo.io" title="Hugo">Hugo</a> |
-                    <a href="http://localhost:1313/index.xml">Subscribe </a></h6>
-            </li>
-            
-            
-        </ul>
-    </footer>
-</div>
-<script src="http://localhost:1313/js/scripts.js"></script>
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
 
-  
-
-
+    .sidebar-tag {
+      font-size: 11px;
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 2px;
+      color: #666;
+    }
+  </style>
 </body>
-
 </html>
-

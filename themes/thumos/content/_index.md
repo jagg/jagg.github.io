@@ -4,6 +4,6 @@ date = 2023-01-01T08:00:00-07:00
 draft = false
 +++
 
-Laborum voluptate pariatur ex culpa magna nostrud est incididunt fugiat
-pariatur do dolor ipsum enim. Consequat tempor do dolor eu. Non id id anim anim
-excepteur excepteur pariatur nostrud qui irure ullamco.
+A minimalist coding blog where I document my programming journey, share useful snippets, and explore various technologies.
+
+This space serves as both a learning log and a reference for future me (and hopefully helpful to others too).

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Leader election using Raft | Logos, Thumos &amp; Code</title>
+
+    <link rel="stylesheet" href="http://localhost:1313/css/main.css">
+
+
+      <script src="http://localhost:1313/js/main.js"></script>
+
+
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="http://localhost:1313/">Home</a></li>
+          <li><a href="http://localhost:1313/posts">Blog</a></li>
+        </ul>
+      </div>
+
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Recent Posts</h3>
+        <ul>
+          
+            <li>
+              <a href="http://localhost:1313/posts/leader_election/" class="active-post">
+                Leader election using Raft
+              </a>
+              <div class="post-date">
+                May 26
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/replication/" >
+                Adding replication to the Key-Value …
+              </a>
+              <div class="post-date">
+                Apr 18
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/eio/" >
+                Notes on Eio
+              </a>
+              <div class="post-date">
+                Apr 5
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/wal/" >
+                A basic Write Ahead Log
+              </a>
+              <div class="post-date">
+                Mar 30
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/trying_ocaml/" >
+                Giving OCaml a try
+              </a>
+              <div class="post-date">
+                Mar 22
+              </div>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Connect</h3>
+        <ul>
+          
+            <li><a href="https://github.com/jagg" target="_blank" rel="noopener">GitHub</a></li>
+          
+          
+            <li><a href="https://linkedin.com/in/jose-a-garcia-gimeno" target="_blank" rel="noopener">LinkedIn</a></li>
+          
+          
+            <li><a href="https://twitter.com/jagarciagim" target="_blank" rel="noopener">Twitter</a></li>
+          
+          
+            <li><a href="https://bsky.app/profile/jagargim.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Tags</h3>
+        <div class="tags-container">
+          
+            <span class="sidebar-tag">
+              #raft
+            </span>
+          
+            <span class="sidebar-tag">
+              #distributed systems
+            </span>
+          
+        </div>
+      </div>
+      
+    </aside>
+
+    <div class="main-content">
+      <header>
+        <h1><a href="http://localhost:1313/">Logos, Thumos &amp; Code</a></h1>
+<nav>
+  
+  <ul>
+      <li>
+        <a href="http://localhost:1313/categories">Categories</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/tags">Tags</a>
+      </li>
+  </ul>
+</nav>
+      </header>
+      <main>
+        
+<article class="post">
+  <header class="post-header">
+    <h1>Leader election using Raft</h1>
+    <div class="post-meta">
+      <time datetime="2025-05-26">
+        May 26, 2025
+      </time>
+      
+        <div class="post-tags">
+          
+            <span class="tag">#raft</span>
+          
+            <span class="tag">#distributed systems</span>
+          
+        </div>
+      
+    </div>
+  </header>
+
+  <div class="post-content">
+    <p>In my previous posts I&rsquo;ve been working on a basic key-value store,
+using a write-ahead log, and replicating its data across several
+replicas (see posts on <a href="http://localhost:1313/posts/wal/">WAL</a>, and <a href="http://localhost:1313/posts/replication/">replication</a>)). This version had a hardcoded leader handling
+all writes, and sending the data to the followers, but had several
+shortcomings, the main one among them was that the configuration had
+to include which node is the leader. If the leader dies, the cluster
+can&rsquo;t do any work, doesn&rsquo;t matter how many nodes remain.</p>
+<p>In this post I&rsquo;m trying to make that a little bit better by
+implementing <a href="https://raft.github.io/raft.pdf">Raft</a>, a leader
+election algorithm designed to be easier to understand and implement
+(by consensus algorithm standards, that is)</p>
+<p>If you are coming from the previous posts, this implementation
+required some many changes in the architecture that I started from
+scratch in a new repository. The code is available in
+<a href="https://github.com/jagg/raft">GitHub</a>.</p>
+<h1 id="what-is-leader-election">What is Leader Election?</h1>
+<p>The key-value store is using single leader replication&hellip;</p>
+
+  </div>
+
+  
+    <nav class="post-navigation">
+      
+        <div class="nav-prev">
+          <a href="http://localhost:1313/posts/replication/" rel="prev">
+            <span class="nav-label">← Previous Post</span>
+            <span class="nav-title">Adding replication to the Key-Value Store</span>
+          </a>
+        </div>
+      
+      
+    </nav>
+  
+</article>
+
+      </main>
+      <footer>
+        <p>&copy; 2025 Logos, Thumos &amp; Code. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+  <style>
+    .sidebar-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .sidebar-section h3 {
+      margin-top: 0 !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .sidebar-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .active-post {
+      color: #2d5016 !important;
+      background-color: #e8f5e8 !important;
+      padding-left: 0.5rem !important;
+    }
+
+    .post-date {
+      font-size: 11px;
+      color: #888;
+      margin-top: 0.2rem;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .sidebar-tag {
+      font-size: 11px;
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 2px;
+      color: #666;
+    }
+  </style>
+</body>
+</html>

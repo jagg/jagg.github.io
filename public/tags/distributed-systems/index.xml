@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Distributed Systems on Logos, Thumos &amp; Code</title>
+    <link>http://localhost:1313/tags/distributed-systems/</link>
+    <description>Recent content in Distributed Systems on Logos, Thumos &amp; Code</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Copyright &amp;copy; 2025 - Jose A. Garcia</copyright>
+    <lastBuildDate>Mon, 26 May 2025 18:53:21 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/distributed-systems/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Leader election using Raft</title>
+      <link>http://localhost:1313/posts/leader_election/</link>
+      <pubDate>Mon, 26 May 2025 18:53:21 +0200</pubDate>
+      <guid>http://localhost:1313/posts/leader_election/</guid>
+      <description>&lt;p&gt;In my previous posts I&amp;rsquo;ve been working on a basic key-value store,&#xA;using a write-ahead log, and replicating its data across several&#xA;replicas (see posts on &lt;a href=&#34;http://localhost:1313/posts/wal/&#34;&gt;WAL&lt;/a&gt;, and &lt;a href=&#34;http://localhost:1313/posts/replication/&#34;&gt;replication&lt;/a&gt;)). This version had a hardcoded leader handling&#xA;all writes, and sending the data to the followers, but had several&#xA;shortcomings, the main one among them was that the configuration had&#xA;to include which node is the leader. If the leader dies, the cluster&#xA;can&amp;rsquo;t do any work, doesn&amp;rsquo;t matter how many nodes remain.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

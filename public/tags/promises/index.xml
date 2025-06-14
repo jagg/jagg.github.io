@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Promises on Logos, Thumos &amp; Code</title>
+    <link>http://localhost:1313/tags/promises/</link>
+    <description>Recent content in Promises on Logos, Thumos &amp; Code</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Copyright &amp;copy; 2025 - Jose A. Garcia</copyright>
+    <lastBuildDate>Wed, 15 Feb 2023 10:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/promises/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JavaScript Async/Await vs Promises</title>
+      <link>http://localhost:1313/posts/post-2/</link>
+      <pubDate>Wed, 15 Feb 2023 10:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-2/</guid>
+      <description>&lt;p&gt;While both async/await and Promises handle asynchronous operations in JavaScript, they offer different approaches to writing and reading async code.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

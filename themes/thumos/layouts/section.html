@@ -1,8 +1,49 @@
 {{ define "main" }}
+<div class="blog-header">
   <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
+  {{ if .Content }}
+    {{ .Content }}
   {{ end }}
+</div>
+
+<div class="posts-list">
+  {{ range .Paginator.Pages }}
+    <article class="post-card">
+      <header>
+        <h2 class="post-title">
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        <div class="post-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">
+            {{ .Date.Format "January 2, 2006" }}
+          </time>
+          {{ if .Params.tags }}
+            {{ range .Params.tags }}
+              <span class="tag">#{{ . }}</span>
+            {{ end }}
+          {{ end }}
+        </div>
+      </header>
+      {{ if .Summary }}
+        <div class="post-summary">
+          {{ .Summary }}
+          {{ if .Truncated }}
+            <a href="{{ .RelPermalink }}">Read more →</a>
+          {{ end }}
+        </div>
+      {{ end }}
+    </article>
+  {{ end }}
+</div>
+
+{{ if gt .Paginator.TotalPages 1 }}
+  <nav class="pagination">
+    {{ if .Paginator.HasPrev }}
+      <a href="{{ .Paginator.Prev.URL }}" class="pagination-prev">← Previous</a>
+    {{ end }}
+    {{ if .Paginator.HasNext }}
+      <a href="{{ .Paginator.Next.URL }}" class="pagination-next">Next →</a>
+    {{ end }}
+  </nav>
+{{ end }}
 {{ end }}

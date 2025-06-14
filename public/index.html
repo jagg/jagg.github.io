@@ -1,333 +1,225 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+	<meta name="generator" content="Hugo 0.147.8"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Logos, Thumos &amp; Code</title>
 
-<html lang="en-us">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <title>Logos, Thumos &amp; Code</title>
-  <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Random ideas about programming" />
-<meta name="author" content="Jose A. Garcia" /><link rel="alternate" type="application/rss+xml" href="http://localhost:1313/index.xml" title="Logos, Thumos & Code" /><meta property="og:url" content="http://localhost:1313/">
-  <meta property="og:site_name" content="Logos, Thumos & Code">
-  <meta property="og:title" content="Logos, Thumos & Code">
-  <meta property="og:description" content="Random ideas about programming">
-  <meta property="og:locale" content="en_us">
-  <meta property="og:type" content="website">
-    <meta property="og:image" content="http://localhost:1313/">
+    <link rel="stylesheet" href="http://localhost:1313/css/main.css">
 
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/">
-  <meta name="twitter:title" content="Logos, Thumos & Code">
-  <meta name="twitter:description" content="Random ideas about programming">
+      <script src="http://localhost:1313/js/main.js"></script>
 
-<meta name="generator" content="Hugo 0.146.5">
-    
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src="http://localhost:1313/js/mathjax-config.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
 
-  <link rel="stylesheet" href="http://localhost:1313/css/normalize.min.css" />
-  <link rel="stylesheet" href="http://localhost:1313/fontawesome/css/all.min.css" />
-  
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda" />
-  
-  
-  <link rel="stylesheet" type="text/css" href="http://localhost:1313/css/styles.css" />
 </head>
-
 <body>
-  <div id="container">
-    <header>
-      
-      <h1>
-        <a href="http://localhost:1313/">Logos, Thumos &amp; Code</a>
-      </h1>
-
-      <ul id="social-media">
-             <li>
-               <a href="https://github.com/jagg" title="GitHub">
-               <i class="fab fa-github fa-lg"></i>
-               </a>
-             </li>
-             <li>
-               <a href="https://twitter.com/jagarciagim" title="Twitter">
-               <i class="fab fa-twitter fa-lg"></i>
-               </a>
-             </li>
-      </ul>
-      
-      <p><em>Let&rsquo;s write some code</em></p>
-      
-    </header>
-
-    
-<nav>
-    <ul>
-        
-        <li>
-            <a class="" href="http://localhost:1313/categories">
-                <i class="fa-li fa  fa-lg"></i><span>Categories</span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="" href="http://localhost:1313/tags">
-                <i class="fa-li fa  fa-lg"></i><span>Tags</span>
-            </a>
-        </li>
-        
-    </ul>
-</nav>
-
-
-    <main>
-
-
-
-
-<section id="home">
-  <ul>
-    
-    
-    
-
-    <li class="first" >
-      <h1><a href="http://localhost:1313/posts/replication/" title="Adding replication to the Key-Value Store">Adding replication to the Key-Value Store</a></h1>
-      <aside>
-    <ul>
-        <li>
-            <time class="post-date" datetime="2025-04-18T19:43:07&#43;02:00">Apr 18, 2025</time>
-        </li>
-        
-        
-        <li>
-            Categories:
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/categories/ocaml">OCaml</a>
-                
-            </em>
-        </li>
-        
-
-        
-        <li>
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/tags/databases">#databases</a>
-                
-            </em>
-        </li>
-        
-
-        <li>6 minute read</li>
-    </ul>
-</aside>
-
-      
-<div class="featured_image">
-    <a href="http://localhost:1313/posts/replication/" title="Adding replication to the Key-Value Store">
-        <img src="">
-    </a>
-</div>
-
-
-      <p><p>During the past few weeks I&rsquo;ve built a basic key-value store that
-persists data to disk. It works, but only as a single node, so there
-is a fixed limit on the amount of data it can store, and the througput
-it can sustain.</p>
-<p>We can make the store scale horizontally in two ways:</p>
-<ul>
-<li><strong>Replication</strong>, which keeps additional copies of the data in other nodes, improving
-throughput.</li>
-<li><strong>Sharding</strong>, which partitions the keys across different nodes, so that we can store more data.</li>
-</ul>
-<p>In this post I&rsquo;m going to tackle the first one, replication,
-refactoring the storage layer so that we can have as many replicas as
-we want serving reads. All the code is available in
-<a href="https://github.com/jagg/ocledis">GitHub</a>.</p></p>
-      
-      <a href="http://localhost:1313/posts/replication/">Read more…</a>
-      
-    </li>
-    
-
-    <li >
-      <h1><a href="http://localhost:1313/posts/eio/" title="Notes on Eio">Notes on Eio</a></h1>
-      <aside>
-    <ul>
-        <li>
-            <time class="post-date" datetime="2025-04-05T10:01:15&#43;02:00">Apr 5, 2025</time>
-        </li>
-        
-        
-        <li>
-            Categories:
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/categories/ocaml">OCaml</a>
-                
-            </em>
-        </li>
-        
-
-        
-        <li>
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/tags/async">#async</a>
-                
-                    , 
-                    <a href="http://localhost:1313/tags/networking">#networking</a>
-                
-                    , 
-                    <a href="http://localhost:1313/tags/eio">#eio</a>
-                
-            </em>
-        </li>
-        
-
-        <li>6 minute read</li>
-    </ul>
-</aside>
-
-      
-<div class="featured_image">
-    <a href="http://localhost:1313/posts/eio/" title="Notes on Eio">
-        <img src="">
-    </a>
-</div>
-
-
-      <p><p>This weekend I took a step back from working on my Key-Value store to
-make sure I understand the concurrency model of Eio, the OCaml 5
-library that I&rsquo;m using for concurrency and parallelism.</p>
-<p>I decided to turn my notes into a post to force myself to address any
-gaps in my understanding. I&rsquo;m sure that there are several errors, or
-things to improve, so if you are reading this and find some, please,
-ping me on <a href="https://x.com/jagarciagim">Twitter</a>!</p></p>
-      
-      <a href="http://localhost:1313/posts/eio/">Read more…</a>
-      
-    </li>
-    
-
-    <li >
-      <h1><a href="http://localhost:1313/posts/wal/" title="A basic Write Ahead Log">A basic Write Ahead Log</a></h1>
-      <aside>
-    <ul>
-        <li>
-            <time class="post-date" datetime="2025-03-30T12:05:49&#43;02:00">Mar 30, 2025</time>
-        </li>
-        
-        
-        <li>
-            Categories:
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/categories/ocaml">OCaml</a>
-                
-            </em>
-        </li>
-        
-
-        
-        <li>
-            <em>
-                
-                    
-                    <a href="http://localhost:1313/tags/experiment">#experiment</a>
-                
-                    , 
-                    <a href="http://localhost:1313/tags/data-bases">#data bases</a>
-                
-            </em>
-        </li>
-        
-
-        <li>7 minute read</li>
-    </ul>
-</aside>
-
-      
-<div class="featured_image">
-    <a href="http://localhost:1313/posts/wal/" title="A basic Write Ahead Log">
-        <img src="">
-    </a>
-</div>
-
-
-      <p><p>This weekend I decided to add some basic persistence to my <a href="https://github.com/jagg/ocledis">Key-Value
-store</a>. I considered going directly
-into B-Trees or LSM, but they are quite involved. Moving, forward I
-want to focus more on the distributed side of the store rather than low
-level storage details (saving those for later!), so for now I decided
-to implement something simpler, a basic Write Ahead Log (WAL, for short).</p>
-<h2 id="what-is-a-write-ahead-log">What is a Write Ahead Log?</h2>
-<p>This
-<a href="https://www.architecture-weekly.com/p/the-write-ahead-log-a-foundation">post</a>
-from Oskar Dudycz does a much better job than I could explaining the
-theory, so I will just give the high level summary.</p></p>
-      
-      <a href="http://localhost:1313/posts/wal/">Read more…</a>
-      
-    </li>
-    
-  </ul>
-</section>
-
-
-    <ul class="pagination pagination-default">
-      <li class="page-item disabled">
-        <a aria-disabled="true" aria-label="First" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;&laquo;</span></a>
-      </li>
-      <li class="page-item disabled">
-        <a aria-disabled="true" aria-label="Previous" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item active">
-        <a aria-current="page" aria-label="Page 1" class="page-link" role="button">1</a>
-      </li>
-      <li class="page-item">
-        <a href="http://localhost:1313/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
-      </li>
-      <li class="page-item">
-        <a href="http://localhost:1313/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
-      </li>
-      <li class="page-item">
-        <a href="http://localhost:1313/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="http://localhost:1313/page/3/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
-      </li>
-    </ul>
-
-
-
-</main>
-    <footer>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Navigation</h3>
         <ul>
-            <li>
-                <h6>Copyright © 2025 - Jose A. Garcia | 
-                    Rendered by <a href="https://gohugo.io" title="Hugo">Hugo</a> |
-                    <a href="http://localhost:1313/index.xml">Subscribe </a></h6>
-            </li>
-            
-            
+          <li><a href="http://localhost:1313/">Home</a></li>
+          <li><a href="http://localhost:1313/posts">Blog</a></li>
         </ul>
-    </footer>
-</div>
-<script src="http://localhost:1313/js/scripts.js"></script>
+      </div>
+
+      
+      <div class="sidebar-section">
+        <h3>About</h3>
+        <p class="sidebar-text">
+          Random ideas about programming
+        </p>
+      </div>
+      
+
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Connect</h3>
+        <ul>
+          
+            <li><a href="https://github.com/jagg" target="_blank" rel="noopener">GitHub</a></li>
+          
+          
+            <li><a href="https://linkedin.com/in/jose-a-garcia-gimeno" target="_blank" rel="noopener">LinkedIn</a></li>
+          
+          
+            <li><a href="https://twitter.com/jagarciagim" target="_blank" rel="noopener">Twitter</a></li>
+          
+          
+            <li><a href="https://bsky.app/profile/jagargim.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </aside>
+
+    <div class="main-content">
+      <header>
+        <h1><a href="http://localhost:1313/">Logos, Thumos &amp; Code</a></h1>
+<nav>
+  
+  <ul>
+      <li>
+        <a href="http://localhost:1313/categories">Categories</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/tags">Tags</a>
+      </li>
+  </ul>
+</nav>
+      </header>
+      <main>
+        
+<div class="home-hero">
+  <div class="social-links-top">
+    <a href="http://localhost:1313/posts">📝 Blog</a>
+    
+      <a href="https://github.com/jagg" target="_blank" rel="noopener">🐙 GitHub</a>
+    
+    
+      <a href="https://linkedin.com/in/jose-a-garcia-gimeno" target="_blank" rel="noopener">💼 LinkedIn</a>
+    
+    
+      <a href="https://twitter.com/jagarciagim" target="_blank" rel="noopener">🐦 Twitter</a>
+    
+    
+      <a href="https://bsky.app/profile/jagargim.bsky.social" target="_blank" rel="noopener">🦋 Bluesky</a>
+    
+  </div>
+
+  <div class="greeting">Hello, I'm Jose A. Garcia</div>
 
   
+  <div class="home-description-section">
+    
+      <img src="http://localhost:1313/images/avatar.jpeg" alt="Logos, Thumos &amp; Code" class="profile-image">
+    
+    <div class="home-content">
+      <p>I am a software engineer, based in London, UK.</p>
+<p>A minimalist coding blog where I document my programming journey, share useful snippets, and explore various technologies.</p>
+<p>This space serves as both a learning log and a reference for future me (and hopefully helpful to others too).</p>
 
+    </div>
+  </div>
+  
+</div>
 
+<div class="recent-posts">
+  <h2>Latest Posts</h2>
+  <div class="posts-preview">
+    
+      <article class="post-preview">
+        <h3><a href="http://localhost:1313/posts/leader_election/">Leader election using Raft</a></h3>
+        <div class="post-meta">
+          <time datetime="2025-05-26">May 26, 2025</time>
+          
+            
+              <span class="tag">#raft</span>
+            
+              <span class="tag">#distributed systems</span>
+            
+          
+        </div>
+        <p><p>In my previous posts I&rsquo;ve been working on a basic key-value store,
+using a write-ahead log, and replicating its data across several
+replicas …</p></p>
+      </article>
+    
+      <article class="post-preview">
+        <h3><a href="http://localhost:1313/posts/replication/">Adding replication to the Key-Value Store</a></h3>
+        <div class="post-meta">
+          <time datetime="2025-04-18">April 18, 2025</time>
+          
+            
+              <span class="tag">#databases</span>
+            
+          
+        </div>
+        <p><p>During the past few weeks I&rsquo;ve built a basic key-value store that
+persists data to disk. It works, but only as a single node, so there
+is a …</p></p>
+      </article>
+    
+      <article class="post-preview">
+        <h3><a href="http://localhost:1313/posts/eio/">Notes on Eio</a></h3>
+        <div class="post-meta">
+          <time datetime="2025-04-05">April 5, 2025</time>
+          
+            
+              <span class="tag">#async</span>
+            
+              <span class="tag">#networking</span>
+            
+          
+        </div>
+        <p><p>This weekend I took a step back from working on my Key-Value store to
+make sure I understand the concurrency model of Eio, the OCaml 5
+library that …</p></p>
+      </article>
+    
+  </div>
+</div>
+
+      </main>
+      <footer>
+        <p>&copy; 2025 Logos, Thumos &amp; Code. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+  <style>
+    .sidebar-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .sidebar-section h3 {
+      margin-top: 0 !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .sidebar-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .active-post {
+      color: #2d5016 !important;
+      background-color: #e8f5e8 !important;
+      padding-left: 0.5rem !important;
+    }
+
+    .post-date {
+      font-size: 11px;
+      color: #888;
+      margin-top: 0.2rem;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .sidebar-tag {
+      font-size: 11px;
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 2px;
+      color: #666;
+    }
+  </style>
 </body>
-
 </html>
-

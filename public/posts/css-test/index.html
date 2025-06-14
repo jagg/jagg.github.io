@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>CSS Grid Layout Fundamentals | Logos, Thumos &amp; Code</title>
+
+    <link rel="stylesheet" href="http://localhost:1313/css/main.css">
+
+
+      <script src="http://localhost:1313/js/main.js"></script>
+
+
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="http://localhost:1313/">Home</a></li>
+          <li><a href="http://localhost:1313/posts">Blog</a></li>
+        </ul>
+      </div>
+
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Recent Posts</h3>
+        <ul>
+          
+            <li>
+              <a href="http://localhost:1313/posts/leader_election/" >
+                Leader election using Raft
+              </a>
+              <div class="post-date">
+                May 26
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/replication/" >
+                Adding replication to the Key-Value …
+              </a>
+              <div class="post-date">
+                Apr 18
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/eio/" >
+                Notes on Eio
+              </a>
+              <div class="post-date">
+                Apr 5
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/wal/" >
+                A basic Write Ahead Log
+              </a>
+              <div class="post-date">
+                Mar 30
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/trying_ocaml/" >
+                Giving OCaml a try
+              </a>
+              <div class="post-date">
+                Mar 22
+              </div>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Connect</h3>
+        <ul>
+          
+            <li><a href="https://github.com/jagg" target="_blank" rel="noopener">GitHub</a></li>
+          
+          
+            <li><a href="https://linkedin.com/in/jose-a-garcia-gimeno" target="_blank" rel="noopener">LinkedIn</a></li>
+          
+          
+            <li><a href="https://twitter.com/jagarciagim" target="_blank" rel="noopener">Twitter</a></li>
+          
+          
+            <li><a href="https://bsky.app/profile/jagargim.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Tags</h3>
+        <div class="tags-container">
+          
+            <span class="sidebar-tag">
+              #css
+            </span>
+          
+            <span class="sidebar-tag">
+              #grid
+            </span>
+          
+            <span class="sidebar-tag">
+              #layout
+            </span>
+          
+        </div>
+      </div>
+      
+    </aside>
+
+    <div class="main-content">
+      <header>
+        <h1><a href="http://localhost:1313/">Logos, Thumos &amp; Code</a></h1>
+<nav>
+  
+  <ul>
+      <li>
+        <a href="http://localhost:1313/categories">Categories</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/tags">Tags</a>
+      </li>
+  </ul>
+</nav>
+      </header>
+      <main>
+        
+<article class="post">
+  <header class="post-header">
+    <h1>CSS Grid Layout Fundamentals</h1>
+    <div class="post-meta">
+      <time datetime="2024-01-20">
+        January 20, 2024
+      </time>
+      
+        <div class="post-tags">
+          
+            <span class="tag">#css</span>
+          
+            <span class="tag">#grid</span>
+          
+            <span class="tag">#layout</span>
+          
+        </div>
+      
+    </div>
+  </header>
+
+  <div class="post-content">
+    <p>CSS Grid is a powerful layout system that allows you to create complex layouts with ease. Here&rsquo;s a quick example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">container</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">grid</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-template-columns</span>: <span style="color:#a6e22e">repeat</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>fr);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-gap</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">max-width</span>: <span style="color:#ae81ff">1200</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This creates a three-column grid with equal width columns and 20px gaps between them.</p>
+<h2 id="basic-grid-properties">Basic Grid Properties</h2>
+<p>The fundamental properties you need to know:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">grid-container</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">grid</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-template-columns</span>: <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">1</span>fr <span style="color:#ae81ff">200</span><span style="color:#66d9ef">px</span>; <span style="color:#75715e">/* Fixed-Flexible-Fixed */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-template-rows</span>: <span style="color:#66d9ef">auto</span> <span style="color:#ae81ff">1</span>fr <span style="color:#66d9ef">auto</span>; <span style="color:#75715e">/* Header-Content-Footer */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-template-areas</span>: 
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;header header header&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sidebar main aside&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;footer footer footer&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">min-height</span>: <span style="color:#ae81ff">100</span><span style="color:#66d9ef">vh</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="grid-item-placement">Grid Item Placement</h2>
+<p>You can explicitly place items in the grid:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">header</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-area</span>: header;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#f0f0f0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">sidebar</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-area</span>: sidebar;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#e0e0e0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">main-content</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-area</span>: main;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#ffffff</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="responsive-grids">Responsive Grids</h2>
+<p>Create responsive layouts without media queries:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">responsive-grid</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">display</span>: <span style="color:#66d9ef">grid</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-template-columns</span>: <span style="color:#a6e22e">repeat</span>(<span style="color:#66d9ef">auto</span><span style="color:#f92672">-</span>fit, <span style="color:#a6e22e">minmax</span>(<span style="color:#ae81ff">250</span><span style="color:#66d9ef">px</span>, <span style="color:#ae81ff">1</span>fr));
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">gap</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">rem</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This automatically adjusts the number of columns based on available space while maintaining a minimum width of 250px per column.</p>
+<h2 id="grid-vs-flexbox">Grid vs Flexbox</h2>
+<ul>
+<li><strong>Use Grid for</strong>: Two-dimensional layouts, complex positioning</li>
+<li><strong>Use Flexbox for</strong>: One-dimensional layouts, component alignment</li>
+</ul>
+<p>Grid gives you precise control over both rows and columns simultaneously, making it perfect for page layouts and complex component structures.</p>
+<h2 id="testing-text-wrapping">Testing Text Wrapping</h2>
+<p>Here&rsquo;s a very long URL to test wrapping: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout#Grid_tracks_and_grid_lines_and_grid_areas_and_all_the_terminology">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout#Grid_tracks_and_grid_lines_and_grid_areas_and_all_the_terminology</a></p>
+<p>And here&rsquo;s some very long text without spaces to test word breaking: supercalifragilisticexpialidociousthisisaverylongwordthatshouldbreakatthecontaineredgewhenthereisnospaceavailable.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="color:#75715e">/* This is a very long CSS rule with lots of properties to test horizontal scrolling in code blocks */</span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">very-long-selector-name-that-goes-on-and-on</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">background-color</span>: rgba(<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">0.95</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">box-shadow</span>: <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">12</span><span style="color:#66d9ef">px</span> rgba(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.1</span>), <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">8</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">24</span><span style="color:#66d9ef">px</span> rgba(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.05</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">border</span>: <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span> rgba(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">0.8</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">grid-template-columns</span>: <span style="color:#a6e22e">repeat</span>(<span style="color:#66d9ef">auto</span><span style="color:#f92672">-</span>fit, <span style="color:#a6e22e">minmax</span>(<span style="color:#ae81ff">300</span><span style="color:#66d9ef">px</span>, <span style="color:#ae81ff">1</span>fr));
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">transform</span>: translateX(<span style="color:#ae81ff">-50</span><span style="color:#66d9ef">%</span>) translateY(<span style="color:#ae81ff">-50</span><span style="color:#66d9ef">%</span>) scale(<span style="color:#ae81ff">1.05</span>) rotate(<span style="color:#ae81ff">0.5</span><span style="color:#66d9ef">deg</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This should demonstrate both text wrapping and code block horizontal scrolling working correctly within the paper container boundaries.</p>
+  </div>
+
+  
+    <nav class="post-navigation">
+      
+        <div class="nav-prev">
+          <a href="http://localhost:1313/posts/post-3/" rel="prev">
+            <span class="nav-label">← Previous Post</span>
+            <span class="nav-title">Git Workflow: Feature Branches and Clean History</span>
+          </a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="http://localhost:1313/posts/back-to-basics/" rel="next">
+            <span class="nav-label">Next Post →</span>
+            <span class="nav-title">Back to basics</span>
+          </a>
+        </div>
+      
+    </nav>
+  
+</article>
+
+      </main>
+      <footer>
+        <p>&copy; 2025 Logos, Thumos &amp; Code. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+  <style>
+    .sidebar-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .sidebar-section h3 {
+      margin-top: 0 !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .sidebar-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .active-post {
+      color: #2d5016 !important;
+      background-color: #e8f5e8 !important;
+      padding-left: 0.5rem !important;
+    }
+
+    .post-date {
+      font-size: 11px;
+      color: #888;
+      margin-top: 0.2rem;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .sidebar-tag {
+      font-size: 11px;
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 2px;
+      color: #666;
+    }
+  </style>
+</body>
+</html>

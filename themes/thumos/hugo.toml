@@ -1,6 +1,12 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-US'
-title = 'My New Hugo Site'
+title = 'Dev Notes'
+
+[params]
+  description = "A collection of programming notes, tutorials, and insights from a software developer's journey."
+  github = "https://github.com/yourusername"
+  linkedin = "https://linkedin.com/in/yourprofile"
+  profileImage = "/images/profile.jpg"
 
 [menus]
   [[menus.main]]
@@ -9,14 +15,9 @@ title = 'My New Hugo Site'
     weight = 10
 
   [[menus.main]]
-    name = 'Posts'
+    name = 'Blog'
     pageRef = '/posts'
     weight = 20
-
-  [[menus.main]]
-    name = 'Tags'
-    pageRef = '/tags'
-    weight = 30
 
 [module]
   [module.hugoVersion]

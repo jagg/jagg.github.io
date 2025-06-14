@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Functional-Programming on Logos, Thumos &amp; Code</title>
+    <link>http://localhost:1313/tags/functional-programming/</link>
+    <description>Recent content in Functional-Programming on Logos, Thumos &amp; Code</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Copyright &amp;copy; 2025 - Jose A. Garcia</copyright>
+    <lastBuildDate>Sun, 15 Jan 2023 09:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/functional-programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python List Comprehensions: Beyond the Basics</title>
+      <link>http://localhost:1313/posts/post-1/</link>
+      <pubDate>Sun, 15 Jan 2023 09:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-1/</guid>
+      <description>&lt;p&gt;List comprehensions are one of Python&amp;rsquo;s most elegant features, but there&amp;rsquo;s more to them than the basic syntax most developers know.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

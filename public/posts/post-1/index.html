@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Python List Comprehensions: Beyond the Basics | Logos, Thumos &amp; Code</title>
+
+    <link rel="stylesheet" href="http://localhost:1313/css/main.css">
+
+
+      <script src="http://localhost:1313/js/main.js"></script>
+
+
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="http://localhost:1313/">Home</a></li>
+          <li><a href="http://localhost:1313/posts">Blog</a></li>
+        </ul>
+      </div>
+
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Recent Posts</h3>
+        <ul>
+          
+            <li>
+              <a href="http://localhost:1313/posts/leader_election/" >
+                Leader election using Raft
+              </a>
+              <div class="post-date">
+                May 26
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/replication/" >
+                Adding replication to the Key-Value …
+              </a>
+              <div class="post-date">
+                Apr 18
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/eio/" >
+                Notes on Eio
+              </a>
+              <div class="post-date">
+                Apr 5
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/wal/" >
+                A basic Write Ahead Log
+              </a>
+              <div class="post-date">
+                Mar 30
+              </div>
+            </li>
+          
+            <li>
+              <a href="http://localhost:1313/posts/trying_ocaml/" >
+                Giving OCaml a try
+              </a>
+              <div class="post-date">
+                Mar 22
+              </div>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Connect</h3>
+        <ul>
+          
+            <li><a href="https://github.com/jagg" target="_blank" rel="noopener">GitHub</a></li>
+          
+          
+            <li><a href="https://linkedin.com/in/jose-a-garcia-gimeno" target="_blank" rel="noopener">LinkedIn</a></li>
+          
+          
+            <li><a href="https://twitter.com/jagarciagim" target="_blank" rel="noopener">Twitter</a></li>
+          
+          
+            <li><a href="https://bsky.app/profile/jagargim.bsky.social" target="_blank" rel="noopener">Bluesky</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="sidebar-section">
+        <h3>Tags</h3>
+        <div class="tags-container">
+          
+            <span class="sidebar-tag">
+              #python
+            </span>
+          
+            <span class="sidebar-tag">
+              #functional-programming
+            </span>
+          
+            <span class="sidebar-tag">
+              #performance
+            </span>
+          
+        </div>
+      </div>
+      
+    </aside>
+
+    <div class="main-content">
+      <header>
+        <h1><a href="http://localhost:1313/">Logos, Thumos &amp; Code</a></h1>
+<nav>
+  
+  <ul>
+      <li>
+        <a href="http://localhost:1313/categories">Categories</a>
+      </li>
+      <li>
+        <a href="http://localhost:1313/tags">Tags</a>
+      </li>
+  </ul>
+</nav>
+      </header>
+      <main>
+        
+<article class="post">
+  <header class="post-header">
+    <h1>Python List Comprehensions: Beyond the Basics</h1>
+    <div class="post-meta">
+      <time datetime="2023-01-15">
+        January 15, 2023
+      </time>
+      
+        <div class="post-tags">
+          
+            <span class="tag">#python</span>
+          
+            <span class="tag">#functional-programming</span>
+          
+            <span class="tag">#performance</span>
+          
+        </div>
+      
+    </div>
+  </header>
+
+  <div class="post-content">
+    <p>List comprehensions are one of Python&rsquo;s most elegant features, but there&rsquo;s more to them than the basic syntax most developers know.</p>
+<h2 id="conditional-logic-in-comprehensions">Conditional Logic in Comprehensions</h2>
+<p>You can add filtering and conditional expressions to create powerful one-liners:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Filter with condition</span>
+</span></span><span style="display:flex;"><span>evens <span style="color:#f92672">=</span> [x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">if</span> x <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [0, 2, 4, 6, 8]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Conditional expression with very long line to demonstrate horizontal scrolling</span>
+</span></span><span style="display:flex;"><span>signs <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;positive&#39;</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;negative&#39;</span> <span style="color:#66d9ef">if</span> x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#39;zero&#39;</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">10</span>]]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [&#39;negative&#39;, &#39;zero&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;positive&#39;, &#39;positive&#39;]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Another long line example</span>
+</span></span><span style="display:flex;"><span>processed_data <span style="color:#f92672">=</span> [transform_complex_function(item) <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> large_dataset <span style="color:#66d9ef">if</span> validate_item(item) <span style="color:#f92672">and</span> item<span style="color:#f92672">.</span>status <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;active&#39;</span> <span style="color:#f92672">and</span> item<span style="color:#f92672">.</span>priority <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span>]
+</span></span></code></pre></div><h2 id="nested-comprehensions">Nested Comprehensions</h2>
+<p>For processing nested structures, you can chain comprehensions:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>matrix <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>], [<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>], [<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>]]
+</span></span><span style="display:flex;"><span>flattened <span style="color:#f92672">=</span> [item <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> matrix <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> row]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># With filtering - this line is intentionally long to show horizontal scrolling behavior</span>
+</span></span><span style="display:flex;"><span>odds_only <span style="color:#f92672">=</span> [transform_and_validate_item(item, additional_param<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, config<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;mode&#39;</span>: <span style="color:#e6db74">&#39;strict&#39;</span>, <span style="color:#e6db74">&#39;validation&#39;</span>: <span style="color:#66d9ef">True</span>}) <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> matrix <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> row <span style="color:#66d9ef">if</span> item <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> item <span style="color:#f92672">&gt;</span> minimum_threshold]
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># [1, 3, 5, 7, 9]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Complex nested comprehension with long variable names</span>
+</span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> [{<span style="color:#e6db74">&#39;processed_value&#39;</span>: calculate_complex_metric(value), <span style="color:#e6db74">&#39;metadata&#39;</span>: generate_metadata_dict(value)} <span style="color:#66d9ef">for</span> sublist <span style="color:#f92672">in</span> nested_data_structure <span style="color:#66d9ef">for</span> value <span style="color:#f92672">in</span> sublist <span style="color:#66d9ef">if</span> meets_complex_criteria(value)]
+</span></span></code></pre></div><h2 id="performance-considerations">Performance Considerations</h2>
+<p>List comprehensions are generally faster than equivalent for loops, but they&rsquo;re not always the best choice:</p>
+<ul>
+<li>Use generators for large datasets to save memory</li>
+<li>Consider <code>map()</code> and <code>filter()</code> for simple transformations</li>
+<li>Profile your code when performance matters</li>
+</ul>
+<p>The key is readability - if your comprehension becomes too complex, a regular loop might be clearer.</p>
+  </div>
+
+  
+    <nav class="post-navigation">
+      
+      
+        <div class="nav-next">
+          <a href="http://localhost:1313/posts/post-2/" rel="next">
+            <span class="nav-label">Next Post →</span>
+            <span class="nav-title">JavaScript Async/Await vs Promises</span>
+          </a>
+        </div>
+      
+    </nav>
+  
+</article>
+
+      </main>
+      <footer>
+        <p>&copy; 2025 Logos, Thumos &amp; Code. All rights reserved.</p>
+      </footer>
+    </div>
+  </div>
+  <style>
+    .sidebar-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .sidebar-section h3 {
+      margin-top: 0 !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .sidebar-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .active-post {
+      color: #2d5016 !important;
+      background-color: #e8f5e8 !important;
+      padding-left: 0.5rem !important;
+    }
+
+    .post-date {
+      font-size: 11px;
+      color: #888;
+      margin-top: 0.2rem;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .sidebar-tag {
+      font-size: 11px;
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 2px;
+      color: #666;
+    }
+  </style>
+</body>
+</html>

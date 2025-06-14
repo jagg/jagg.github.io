@@ -4,14 +4,138 @@
   {{ partial "head.html" . }}
 </head>
 <body>
-  <header>
-    {{ partial "header.html" . }}
-  </header>
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <h3>Navigation</h3>
+        <ul>
+          <li><a href="{{ "/" | relURL }}">Home</a></li>
+          <li><a href="{{ "/posts" | relURL }}">Blog</a></li>
+        </ul>
+      </div>
+
+      {{ if .IsHome }}
+      <div class="sidebar-section">
+        <h3>About</h3>
+        <p class="sidebar-text">
+          {{ site.Params.description | truncate 120 }}
+        </p>
+      </div>
+      {{ end }}
+
+      {{ if eq .Section "posts" }}
+      <div class="sidebar-section">
+        <h3>Recent Posts</h3>
+        <ul>
+          {{ range first 5 (where site.RegularPages "Section" "posts") }}
+            <li>
+              <a href="{{ .RelPermalink }}" {{ if eq $.RelPermalink .RelPermalink }}class="active-post"{{ end }}>
+                {{ .Title | truncate 35 }}
+              </a>
+              <div class="post-date">
+                {{ .Date.Format "Jan 2" }}
+              </div>
+            </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+
+      {{ if or site.Params.author.github site.Params.author.linkedin site.Params.author.twitter site.Params.author.bluesky }}
+      <div class="sidebar-section">
+        <h3>Connect</h3>
+        <ul>
+          {{ if site.Params.author.github }}
+            <li><a href="https://github.com/{{ site.Params.author.github }}" target="_blank" rel="noopener">GitHub</a></li>
+          {{ end }}
+          {{ if site.Params.author.linkedin }}
+            <li><a href="https://linkedin.com/in/{{ site.Params.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>
+          {{ end }}
+          {{ if site.Params.author.twitter }}
+            <li><a href="https://twitter.com/{{ site.Params.author.twitter }}" target="_blank" rel="noopener">Twitter</a></li>
+          {{ end }}
+          {{ if site.Params.author.bluesky }}
+            <li><a href="https://bsky.app/profile/{{ site.Params.author.bluesky }}" target="_blank" rel="noopener">Bluesky</a></li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+
+      {{ if and (eq .Section "posts") .Params.tags }}
+      <div class="sidebar-section">
+        <h3>Tags</h3>
+        <div class="tags-container">
+          {{ range .Params.tags }}
+            <span class="sidebar-tag">
+              #{{ . }}
+            </span>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </aside>
+
+    <div class="main-content">
+      <header>
+        {{ partial "header.html" . }}
+      </header>
+      <main>
+        {{ block "main" . }}{{ end }}
+      </main>
+      <footer>
+        {{ partial "footer.html" . }}
+      </footer>
+    </div>
+  </div>
+  <style>
+    .sidebar-section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .sidebar-section h3 {
+      margin-top: 0 !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .sidebar-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .active-post {
+      color: #2d5016 !important;
+      background-color: #e8f5e8 !important;
+      padding-left: 0.5rem !important;
+    }
+
+    .post-date {
+      font-size: 11px;
+      color: #888;
+      margin-top: 0.2rem;
+    }
+
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .sidebar-tag {
+      font-size: 11px;
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 2px;
+      color: #666;
+    }
+  </style>
 </body>
 </html>

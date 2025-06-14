@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Photography on Dev Notes</title>
+    <link>http://localhost:1313/tags/photography/</link>
+    <description>Recent content in Photography on Dev Notes</description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <lastBuildDate>Wed, 15 Mar 2023 11:00:00 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/photography/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring Bryce Canyon National Park</title>
+      <link>http://localhost:1313/posts/post-3/</link>
+      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
+      <guid>http://localhost:1313/posts/post-3/</guid>
+      <description>&lt;p&gt;Last month I had the incredible opportunity to visit Bryce Canyon National Park in Utah. The otherworldly landscape of red rock formations and towering hoodoos creates one of the most spectacular natural displays I&amp;rsquo;ve ever witnessed.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;bryce-canyon.jpg&#34; alt=&#34;Bryce Canyon National Park&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;a-photographers-paradise&#34;&gt;A Photographer&amp;rsquo;s Paradise&lt;/h2&gt;&#xA;&lt;p&gt;The park offers countless opportunities for photography, from sunrise at Bryce Point to the intricate details of the amphitheater formations. The interplay of light and shadow throughout the day transforms the landscape dramatically.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
