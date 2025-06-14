@@ -30,12 +30,5 @@
       <guid>http://localhost:1313/posts/cledis/</guid>
       <description>&lt;p&gt;This week I was looking for something new, and I realised that I&amp;rsquo;ve&#xA;never tried to do any network programming using Common Lisp. Also,&#xA;some time ago I came across the &lt;a href=&#34;https://build-your-own.org/redis/#table-of-contents&#34;&gt;Build your own&#xA;Redis&lt;/a&gt; book, but&#xA;never tried to go through it. The project is perfect, it contains&#xA;threading, networking, and even some async programming. I had no idea&#xA;what the Common Lisp ecosystem for those things looks like, so it was&#xA;time to find out.&lt;/p&gt;</description>
     </item>
-    <item>
-      <title>JavaScript Async/Await vs Promises</title>
-      <link>http://localhost:1313/posts/post-2/</link>
-      <pubDate>Wed, 15 Feb 2023 10:00:00 -0700</pubDate>
-      <guid>http://localhost:1313/posts/post-2/</guid>
-      <description>&lt;p&gt;While both async/await and Promises handle asynchronous operations in JavaScript, they offer different approaches to writing and reading async code.&lt;/p&gt;</description>
-    </item>
   </channel>
 </rss>

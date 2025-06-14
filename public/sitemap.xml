@@ -14,6 +14,9 @@
     <loc>http://localhost:1313/categories/ocaml/</loc>
     <lastmod>2025-05-26T18:53:21+02:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2025-05-26T18:53:21+02:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/tags/raft/</loc>
     <lastmod>2025-05-26T18:53:21+02:00</lastmod>
   </url><url>
@@ -82,54 +85,6 @@
   </url><url>
     <loc>http://localhost:1313/categories/opinion/</loc>
     <lastmod>2025-02-22T09:50:03+01:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/css/</loc>
-    <lastmod>2024-01-20T14:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/css-test/</loc>
-    <lastmod>2024-01-20T14:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/grid/</loc>
-    <lastmod>2024-01-20T14:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/layout/</loc>
-    <lastmod>2024-01-20T14:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/git/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/post-3/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/version-control/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/workflow/</loc>
-    <lastmod>2023-03-15T11:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/javascript/</loc>
-    <lastmod>2023-02-15T10:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/post-2/</loc>
-    <lastmod>2023-02-15T10:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/promises/</loc>
-    <lastmod>2023-02-15T10:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/functional-programming/</loc>
-    <lastmod>2023-01-15T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/performance/</loc>
-    <lastmod>2023-01-15T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/python/</loc>
-    <lastmod>2023-01-15T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/post-1/</loc>
-    <lastmod>2023-01-15T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2023-01-01T08:30:00-07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2023-01-01T08:00:00-07:00</lastmod>

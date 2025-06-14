@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog on Logos, Thumos &amp; Code</title>
+    <title>Posts on Logos, Thumos &amp; Code</title>
     <link>http://localhost:1313/posts/</link>
-    <description>Recent content in Blog on Logos, Thumos &amp; Code</description>
+    <description>Recent content in Posts on Logos, Thumos &amp; Code</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>Copyright &amp;copy; 2025 - Jose A. Garcia</copyright>
@@ -71,34 +71,6 @@
       <pubDate>Sat, 22 Feb 2025 09:50:03 +0100</pubDate>
       <guid>http://localhost:1313/posts/back-to-basics/</guid>
       <description>&lt;p&gt;During the past few years my work as a software engineer has involved&#xA;less low level, algorithmic coding, and more high level strategy,&#xA;architecture, dependency and team interactions. While that makes sense&#xA;as careen progresion (I have more impact that way), the truth is that&#xA;I miss coding things from scratch.&lt;/p&gt;&#xA;&lt;p&gt;Also, with the coming of our AI overlords, I keep on hearing that&#xA;these skills, that I&amp;rsquo;ve spent years improving, are going to, if not&#xA;disappear, become less relevant. In the not so far future, we will be&#xA;able to pay a fee to one of the remaining AI providers, and ask an&#xA;agent to generate our app, and set up a new business from scratch. In&#xA;that world nobody will need to look at code anymore!&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>CSS Grid Layout Fundamentals</title>
-      <link>http://localhost:1313/posts/css-test/</link>
-      <pubDate>Sat, 20 Jan 2024 14:00:00 -0700</pubDate>
-      <guid>http://localhost:1313/posts/css-test/</guid>
-      <description>&lt;p&gt;CSS Grid is a powerful layout system that allows you to create complex layouts with ease. Here&amp;rsquo;s a quick example:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-css&#34; data-lang=&#34;css&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;container&lt;/span&gt; {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;display&lt;/span&gt;: &lt;span style=&#34;color:#66d9ef&#34;&gt;grid&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;grid-template-columns&lt;/span&gt;: &lt;span style=&#34;color:#a6e22e&#34;&gt;repeat&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;fr);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;grid-gap&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;20&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;px&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;max-width&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1200&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;px&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;margin&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;auto&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This creates a three-column grid with equal width columns and 20px gaps between them.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Git Workflow: Feature Branches and Clean History</title>
-      <link>http://localhost:1313/posts/post-3/</link>
-      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
-      <guid>http://localhost:1313/posts/post-3/</guid>
-      <description>&lt;p&gt;A clean Git history is essential for maintainable projects. Here&amp;rsquo;s my approach to feature branches and keeping commits organized.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>JavaScript Async/Await vs Promises</title>
-      <link>http://localhost:1313/posts/post-2/</link>
-      <pubDate>Wed, 15 Feb 2023 10:00:00 -0700</pubDate>
-      <guid>http://localhost:1313/posts/post-2/</guid>
-      <description>&lt;p&gt;While both async/await and Promises handle asynchronous operations in JavaScript, they offer different approaches to writing and reading async code.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Python List Comprehensions: Beyond the Basics</title>
-      <link>http://localhost:1313/posts/post-1/</link>
-      <pubDate>Sun, 15 Jan 2023 09:00:00 -0700</pubDate>
-      <guid>http://localhost:1313/posts/post-1/</guid>
-      <description>&lt;p&gt;List comprehensions are one of Python&amp;rsquo;s most elegant features, but there&amp;rsquo;s more to them than the basic syntax most developers know.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
